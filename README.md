@@ -5,13 +5,22 @@
 * BackEnd : Python, Flask, 
 
 ### Features
-1. Explore training group
-1.1 Join training room
-1.2 Generate training room 
+<ol>
+<li> Explore training group 
+<ol> 
+<li> Join training room </li>
+<li> Generate training room </li>
+</ol>
+</li>
 
-2. Track personal metrics
-2.1 Archive gym time in realtime
-2.2 Get cumulative total hour 
+<li> Track personal metrics
+<ol>
+<li> Archive gym time in realtime</li>
+<li>  Get cumulative total hour </li>
+
+</ol>
+
+
 
 
 ### User Flow 
