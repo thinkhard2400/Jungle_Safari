@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://cdn.jsdelivr.net"
+        crossorigin
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link
+        rel="stylesheet"
+        crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    >
+
+    <link
+        rel="preload"
+        as="image"
+        href="./images/bg.jpeg"
+    >
+
+    <title>Project 482</title>
+
+    <style>
+        html {
+            visibility: hidden;
+        }
+
+        html.fonts-loaded {
+            visibility: visible;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #000;
+            font-family: "Pretendard Variable", sans-serif;
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="
+        relative
+        h-dvh
+        w-full
+        overflow-hidden
+
+        bg-[url('./images/bg.jpeg')]
+        bg-cover
+        bg-center
+
+        text-white
+    ">
+
+        <div class="
+            absolute
+            inset-0
+
+            bg-linear-180
+            from-[#000000]/80 from-30%
+            to-[#000000]/65 to-100%
+        "></div>
+
+        <div class="
+            absolute
+            left-[env(safe-area-inset-left)]
+            right-[env(safe-area-inset-right)]
+            top-[env(safe-area-inset-top)]
+            bottom-[env(safe-area-inset-bottom)]
+
+            flex
+            flex-col
+        ">
+
+            <header class="
+                h-[84px]
+
+                px-[30px]
+
+                flex
+                items-center
+                justify-between
+            ">
+
+                <div class="
+                    flex
+                    items-center
+                    gap-[12px]
+                ">
+                    <img
+                        src="./images/account_circle.svg"
+                        class="
+                            h-[35px]
+                            w-[35px]
+                        "
+                    >
+
+                    <span class="
+                        text-[20px]
+                        leading-none
+                        font-light
+                    ">
+                        <span class="font-bold">이상민</span>님 안녕하세요!
+                    </span>
+                </div>
+
+                <button
+                    type="button"
+                    class="
+                        ml-auto
+                        border-0
+                        bg-transparent
+                    "
+                >
+                    <img
+                        src="./images/menu.svg"
+                        class="
+                            h-[28px]
+                            w-[28px]
+                        "
+                    >
+                </button>
+
+            </header>
+
+            <div class="
+                mx-[20px]
+                h-px
+                bg-white/20
+            "></div>
+
+            <section class="
+                px-[30px]
+                pt-[30px]
+            ">
+
+                <div
+                    id="room-name"
+                    class="
+                        text-[30px]
+                        leading-none
+                        font-bold
+                    "
+                >
+                    방 정보를 불러오지 못했습니다.
+                </div>
+
+                <div
+                    id="room-time"
+                    class="
+                        mt-[34px]
+
+                        text-[27px]
+                        leading-none
+                        font-normal
+                        whitespace-nowrap
+                    "
+                >
+                    시간을 불러오지 못했습니다.
+                </div>
+
+            </section>
+
+            <div
+                id="participant-list"
+                class="
+                    mt-[48px]
+                    px-[20px]
+
+                    flex
+                    flex-col
+                    gap-[10px]
+                "
+            ></div>
+
+            <div class="
+                mt-auto
+
+                px-[20px]
+                pb-[30px]
+
+                flex
+                items-center
+                justify-center
+                gap-[44px]
+            ">
+
+                <button
+                    type="button"
+                    class="
+                        h-[120px]
+                        w-[120px]
+                        rounded-[22px]
+
+                        bg-[#05D082]
+
+                        flex
+                        items-center
+                        justify-center
+                    "
+                >
+                    <img
+                        src="./images/play.svg"
+                        class="
+                            h-[42px]
+                            w-[42px]
+                        "
+                    >
+                </button>
+
+                <button
+                    type="button"
+                    class="
+                        h-[120px]
+                        w-[120px]
+                        rounded-[22px]
+
+                        bg-[#F72D7D]
+
+                        flex
+                        items-center
+                        justify-center
+                    "
+                >
+                    <img
+                        src="./images/stop.svg"
+                        class="
+                            h-[42px]
+                            w-[42px]
+                        "
+                    >
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        /*
+            const response = await fetch(`/api/rooms/${roomId}`);
+            const roomData = await response.json();
+            const serverOffset =
+                serverTimestamp + (rtt / 2) - t1;
+        */
+
+        const serverOffset = 0;
+
+        function getServerNow() {
+            return Date.now() + serverOffset;
+        }
+
+        const now = getServerNow();
+
+        const roomData = {
+            roomName: "이상민님의 방",
+            time: "08/24 23:00 ~ 23:30",
+            status: "start",
+            timestamp: new Date(now - 480000).toISOString(),
+            members: [
+                {
+                    name: "이상민",
+                    isHost: true,
+                    isReady: true,
+                    logs: [
+                        {
+                            type: "start",
+                            timestamp: new Date(now - 222400).toISOString()
+                        }
+                    ]
+                },
+                {
+                    name: "이상민",
+                    isHost: false,
+                    isReady: true,
+                    logs: [
+                        {
+                            type: "start",
+                            timestamp: new Date(now - 222750).toISOString()
+                        }
+                    ]
+                },
+                {
+                    name: "이상민",
+                    isHost: false,
+                    isReady: true,
+                    logs: [
+                        {
+                            type: "start",
+                            timestamp: new Date(now - 180000).toISOString()
+                        },
+                        {
+                            type: "pause",
+                            timestamp: new Date(now - 96000).toISOString()
+                        }
+                    ]
+                }
+            ]
+        };
+
+        document.getElementById("room-name").textContent = roomData.roomName;
+        document.getElementById("room-time").textContent = roomData.time;
+
+        const participantList = document.getElementById("participant-list");
+
+        let tickTimer = null;
+
+        function getWorkoutMilliseconds(logs) {
+            let total = 0;
+            let startedAt = null;
+
+            logs.forEach(log => {
+                const timestamp = new Date(log.timestamp).getTime();
+
+                if (log.type === "start") {
+                    startedAt = timestamp;
+                }
+
+                if (log.type === "pause" && startedAt !== null) {
+                    total += timestamp - startedAt;
+                    startedAt = null;
+                }
+            });
+
+            if (startedAt !== null) {
+                total += getServerNow() - startedAt;
+            }
+
+            return total;
+        }
+
+        function formatTime(milliseconds) {
+            const seconds = Math.floor(milliseconds / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const remainSeconds = seconds % 60;
+
+            return `${minutes}:${String(remainSeconds).padStart(2, "0")}`;
+        }
+
+        function renderParticipants() {
+            roomData.members.forEach((member, index) => {
+                const participant = document.createElement("div");
+
+                const lastLog = member.logs[member.logs.length - 1];
+                const isWorking = lastLog.type === "start";
+
+                const statusText = isWorking
+                    ? "운동중"
+                    : "휴식중";
+
+                const statusColor = isWorking
+                    ? "text-[#05D082]"
+                    : "text-[#F72D7D]";
+
+                participant.className = `
+                    h-[60px]
+                    rounded-[12px]
+
+                    bg-[#666666]/75
+
+                    px-[30px]
+
+                    grid
+                    grid-cols-3
+                    items-center
+                `;
+
+                participant.innerHTML = `
+                    <span class="
+                        text-[24px]
+                        leading-none
+                        font-normal
+                    ">
+                        ${member.name}
+                    </span>
+
+                    <span
+                        id="participant-time-${index}"
+                        class="
+                            text-center
+                            text-[24px]
+                            leading-none
+                            font-bold
+                        "
+                    >
+                        ${formatTime(getWorkoutMilliseconds(member.logs))}
+                    </span>
+
+                    <span class="
+                        text-right
+                        text-[21px]
+                        leading-none
+                        font-bold
+                        ${statusColor}
+                    ">
+                        ${statusText}
+                    </span>
+                `;
+
+                participantList.appendChild(participant);
+            });
+        }
+
+        function updateParticipantTimes() {
+            roomData.members.forEach((member, index) => {
+                const lastLog = member.logs[member.logs.length - 1];
+
+                if (lastLog.type !== "start") {
+                    return;
+                }
+
+                const time = document.getElementById(
+                    `participant-time-${index}`
+                );
+
+                time.textContent = formatTime(
+                    getWorkoutMilliseconds(member.logs)
+                );
+            });
+        }
+
+        function getNextUpdateAt(member) {
+            const lastLog = member.logs[member.logs.length - 1];
+
+            if (lastLog.type !== "start") {
+                return null;
+            }
+
+            const elapsed = getWorkoutMilliseconds(member.logs);
+            const remain = 1000 - (elapsed % 1000);
+
+            return getServerNow() + remain;
+        }
+
+        function getNextTickAt() {
+            let nextTickAt = null;
+
+            roomData.members.forEach(member => {
+                const updateAt = getNextUpdateAt(member);
+
+                if (updateAt === null) {
+                    return;
+                }
+
+                if (
+                    nextTickAt === null ||
+                    updateAt < nextTickAt
+                ) {
+                    nextTickAt = updateAt;
+                }
+            });
+
+            return nextTickAt;
+        }
+
+        function scheduleNextTick() {
+            if (tickTimer !== null) {
+                clearTimeout(tickTimer);
+            }
+
+            const nextTickAt = getNextTickAt();
+
+            if (nextTickAt === null) {
+                tickTimer = null;
+                return;
+            }
+
+            const delay = Math.max(
+                0,
+                nextTickAt - getServerNow()
+            );
+
+            tickTimer = setTimeout(() => {
+                updateParticipantTimes();
+                scheduleNextTick();
+            }, delay);
+        }
+
+        renderParticipants();
+        scheduleNextTick();
+
+        document.fonts.ready.then(() => {
+            document.documentElement.classList.add("fonts-loaded");
+        });
+    </script>
+
+</body>
+
+</html>

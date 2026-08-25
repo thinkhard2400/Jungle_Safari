@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    >
+
+    <title>Project 482</title>
+
+    <style>
+        html {
+            visibility: hidden;
+        }
+
+        html.fonts-loaded {
+            visibility: visible;
+        }
+
+        body {
+            margin: 0;
+            background: #000;
+            font-family: "Pretendard Variable", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="
+        relative
+        h-dvh
+
+        bg-[url('./images/bg.jpeg')]
+        bg-cover
+        bg-center
+
+        text-white
+    ">
+
+        <div class="
+            absolute
+            inset-0
+
+            bg-black/65
+        "></div>
+
+        <div class="
+            absolute
+            top-[env(safe-area-inset-top)]
+            right-[env(safe-area-inset-right)]
+            bottom-[env(safe-area-inset-bottom)]
+            left-[env(safe-area-inset-left)]
+
+            flex
+            flex-col
+        ">
+
+            <header class="
+                h-[84px]
+                px-[29px]
+
+                flex
+                items-center
+            ">
+
+                <div class="
+                    flex
+                    items-center
+                    gap-[10px]
+                ">
+
+                    <img
+                        src="./images/account_circle.svg"
+                        class="
+                            h-[32px]
+                            w-[32px]
+                        "
+                    >
+
+                    <span class="
+                        text-[20px]
+                        leading-none
+                        font-bold
+                    ">
+                        이상민님 안녕하세요!
+                    </span>
+
+                </div>
+
+                <button class="
+                    ml-auto
+                ">
+                    <img
+                        src="./images/menu.svg"
+                        class="
+                            h-[29px]
+                            w-[29px]
+                        "
+                    >
+                </button>
+
+            </header>
+
+
+            <div class="
+                mt-[22px]
+                pl-[23px]
+                pr-[45px]
+            ">
+
+                <div class="
+                    flex
+                    items-center
+                ">
+
+                    <label
+                        for="room-name"
+                        class="
+                            w-[45px]
+
+                            text-[18px]
+                            font-normal
+                        "
+                    >
+                        방 이름
+                    </label>
+
+                    <input
+                        id="room-name"
+                        type="text"
+                        class="
+                            ml-[9px]
+                            h-[48px]
+                            flex-1
+
+                            rounded-full
+                            bg-white
+                            px-[18px]
+
+                            text-[18px]
+                            text-black
+                        "
+                    >
+
+                </div>
+
+
+                <div class="
+                    mt-[12px]
+
+                    flex
+                    items-center
+                ">
+
+                    <label
+                        for="room-date"
+                        class="
+                            w-[45px]
+
+                            text-[18px]
+                            font-normal
+                        "
+                    >
+                        날짜
+                    </label>
+
+                    <input
+                        id="room-date"
+                        type="text"
+                        class="
+                            ml-[9px]
+                            h-[48px]
+                            flex-1
+
+                            rounded-full
+                            bg-white
+                            px-[18px]
+
+                            text-[18px]
+                            text-black
+                        "
+                    >
+
+                </div>
+
+
+                <div class="
+                    mt-[12px]
+
+                    flex
+                    items-center
+                ">
+
+                    <label
+                        for="room-time"
+                        class="
+                            w-[45px]
+
+                            text-[18px]
+                            font-normal
+                        "
+                    >
+                        시간
+                    </label>
+
+                    <input
+                        id="room-time"
+                        type="text"
+                        class="
+                            ml-[9px]
+                            h-[48px]
+                            flex-1
+
+                            rounded-full
+                            bg-white
+                            px-[18px]
+
+                            text-[18px]
+                            text-black
+                        "
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="
+                mt-auto
+                px-[42px]
+                pb-[20px]
+            ">
+
+                <button class="
+                    h-[48px]
+                    w-full
+
+                    rounded-full
+
+                    bg-[#05D082]
+                    text-white
+
+                    text-[18px]
+                    leading-none
+                    font-extrabold
+                ">
+                    방 만들기
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+        document.fonts.ready.then(() => {
+            document.documentElement.classList.add("fonts-loaded");
+        });
+    </script>
+
+</body>
+
+</html>
