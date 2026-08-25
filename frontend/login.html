@@ -71,79 +71,85 @@
 <body>
 
     <main class="
-            relative
-            h-dvh
-            w-full
-            overflow-hidden
-            bg-[url('./images/bg.jpeg')]
-            bg-cover
-            bg-center
-            text-white
+        relative
+        h-dvh
+        w-full
+        overflow-hidden
+
+        bg-[url('./images/bg.jpeg')]
+        bg-cover
+        bg-center
+
+        text-white
+    ">
+
+        <div class="
+            absolute
+            inset-0
+
+            bg-linear-180
+            from-[#000000]/90 from-30%
+            via-[#000000]/80 via-50%
+            to-[#000000]/70 to-95%
+        "></div>
+
+        <div class="
+            absolute
+            top-[env(safe-area-inset-top)]
+            right-[env(safe-area-inset-right)]
+            bottom-[env(safe-area-inset-bottom)]
+            left-[env(safe-area-inset-left)]
+
+            grid
+            grid-rows-[1fr_auto_1fr]
         ">
 
-        <div class="
-                absolute
-                inset-0
-                bg-linear-180
-                from-[#000000]/90 from-30%
-                via-[#000000]/80 via-50%
-                to-[#000000]/70 to-95%
-            "></div>
+            <div class="
+                pt-[30px]
+                px-[30px]
 
-        <div class="
-                absolute
-                top-[env(safe-area-inset-top)]
-                right-[env(safe-area-inset-right)]
-                bottom-[env(safe-area-inset-bottom)]
-                left-[env(safe-area-inset-left)]
+                flex
+                items-start
+                justify-between
             ">
 
-            <h1 class="
-                    absolute
-                    top-[30px]
-                    left-[30px]
-
+                <h1 class="
                     m-0
+
                     text-[32px]
                     leading-[1.2]
                     font-black
-                    whitespace-nowrap
                 ">
-                PROJECT<br>
-                482
-            </h1>
+                    PROJECT<br>
+                    482
+                </h1>
 
-            <div class="
-                    absolute
-                    top-[30px]
-                    right-[30px]
-
+                <div class="
                     text-right
                     text-[24px]
                     leading-[1.2]
                     font-bold
                     tracking-[-0.03em]
-                    whitespace-nowrap
                 ">
-                <div>일주일에</div>
-                <div><span class="font-black">4 </span>번</div>
-                <div><span class="font-black">82 </span>분</div>
-                <div>운동하기</div>
+                    <div>일주일에</div>
+                    <div><span class="font-black">4 </span>번</div>
+                    <div><span class="font-black">82 </span>분</div>
+                    <div>운동하기</div>
+                </div>
+
             </div>
 
             <form class="
-                    absolute
-                    top-1/2
-                    left-[45px]
-                    right-[45px]
-                    -translate-y-1/2
-                ">
+                w-full
+                px-[45px]
+            ">
 
                 <div class="
-                        flex
-                        h-[48px]
-                        items-center
-                    ">
+                    flex
+                    h-[48px]
+                    items-center
+                ">
+
                     <label
                         for="user-id"
                         class="
@@ -185,14 +191,17 @@
                             shadow-none
                         "
                     >
+
                 </div>
 
                 <div class="
-                        mt-[12px]
-                        flex
-                        h-[48px]
-                        items-center
-                    ">
+                    mt-[12px]
+
+                    flex
+                    h-[48px]
+                    items-center
+                ">
+
                     <label
                         for="user-password"
                         class="
@@ -234,6 +243,7 @@
                             shadow-none
                         "
                     >
+
                 </div>
 
                 <button
@@ -255,11 +265,6 @@
                         text-[18px]
                         leading-none
                         font-extrabold
-
-                        cursor-pointer
-
-                        transition-transform
-                        active:scale-[0.98]
                     "
                 >
                     Log in
@@ -267,17 +272,24 @@
 
             </form>
 
-            <img
-                src="./images/jg_white.webp"
-                alt=""
-                class="
-                    absolute
-                    right-[20px]
-                    bottom-[20px]
-                    w-[175px]
-                    h-auto
-                "
-            >
+            <div class="
+                px-[20px]
+                pb-[20px]
+
+                flex
+                items-end
+                justify-end
+            ">
+
+                <img
+                    src="./images/jg_white.webp"
+                    class="
+                        w-[175px]
+                        h-auto
+                    "
+                >
+
+            </div>
 
         </div>
 

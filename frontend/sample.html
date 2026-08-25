@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://cdn.jsdelivr.net"
+        crossorigin
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link
+        rel="stylesheet"
+        crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    >
+
+    <link
+        rel="preload"
+        as="image"
+        href="./images/bg.jpeg"
+    >
+
+    <title>Project 482</title>
+
+    <style>
+        html {
+            visibility: hidden;
+        }
+
+        html.fonts-loaded {
+            visibility: visible;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #000;
+            font-family: "Pretendard Variable", sans-serif;
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="
+        relative
+        h-dvh
+        w-full
+        overflow-hidden
+
+        bg-[url('./images/bg.jpeg')]
+        bg-cover
+        bg-center
+
+        text-white
+    ">
+
+        <div class="
+            absolute
+            inset-0
+
+            bg-linear-180
+            from-[#000000]/80 from-30%
+            to-[#000000]/65 to-100%
+        "></div>
+
+        <div class="
+            absolute
+            left-[env(safe-area-inset-left)]
+            right-[env(safe-area-inset-right)]
+            top-[env(safe-area-inset-top)]
+            bottom-[env(safe-area-inset-bottom)]
+
+            flex
+            flex-col
+        ">
+
+            <header class="
+                h-[84px]
+                shrink-0
+
+                px-[30px]
+
+                flex
+                items-center
+                justify-between
+            ">
+
+                <div class="
+                    flex
+                    items-center
+                    gap-[12px]
+                ">
+                    <img
+                        src="./images/account_circle.svg"
+                        class="
+                            h-[35px]
+                            w-[35px]
+                        "
+                    >
+
+                    <span class="
+                        text-[20px]
+                        leading-none
+                        font-light
+                    ">
+                        <span class="font-bold">이상민</span>님 안녕하세요!
+                    </span>
+                </div>
+
+                <button
+                    type="button"
+                    aria-label="메뉴 열기"
+                    class="
+                        ml-auto
+                        border-0
+                        bg-transparent
+                        p-0
+                        cursor-pointer
+                    "
+                >
+                    <img
+                        src="./images/menu.svg"
+                        class="
+                            h-[28px]
+                            w-[28px]
+                        "
+                    >
+                </button>
+
+            </header>
+
+            <div class="
+                mx-[20px]
+                h-px
+                bg-white/20
+            "></div>
+
+            <section class="
+                px-[30px]
+                pt-[30px]
+            ">
+
+                <div
+                    id="room-name"
+                    class="
+                    text-[30px]
+                    leading-none
+                    font-bold
+                "
+                >
+                    방 정보를 불러오지 못했습니다.
+                </div>
+
+                <div
+                    id="room-time"
+                    class="
+                    mt-[34px]
+
+                    text-[27px]
+                    leading-none
+                    font-normal
+                    whitespace-nowrap
+                "
+                >
+                    시간을 불러오지 못했습니다.
+                </div>
+
+            </section>
+
+            <div
+                id="participant-list"
+                class="
+                mt-[48px]
+                px-[20px]
+
+                flex
+                flex-col
+                gap-[10px]
+            "
+            ></div>
+
+            <div class="
+                mt-auto
+                shrink-0
+
+                px-[20px]
+                pb-[12px]
+
+                flex
+                flex-col
+                gap-[12px]
+            ">
+
+                <button
+                    type="button"
+                    class="
+                        h-[58px]
+                        w-full
+                        rounded-full
+
+                        bg-[#05D082]
+                        text-white
+
+                        text-[20px]
+                        leading-none
+                        font-extrabold
+                    "
+                >
+                    준비하기
+                </button>
+
+                <button
+                    type="button"
+                    class="
+                        h-[58px]
+                        w-full
+                        rounded-full
+
+                        bg-[#DC4778]
+                        text-white
+
+                        text-[20px]
+                        leading-none
+                        font-extrabold
+                    "
+                >
+                    나가기
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        const roomData = {
+            roomName: "이상민님의 방",
+            time: "08/24 23:00 ~ 23:30",
+            status: "start",
+            timestamp: "2026-08-24T14:00:00.000Z",
+            members: [
+                {
+                    name: "이상민",
+                    isHost: true,
+                    isReady: true,
+                    logs: [
+                        { type: "start", timestamp: "2026-08-24T14:00:00.000Z" },
+                        { type: "pause", timestamp: "2026-08-24T14:00:03.000Z" },
+                        { type: "start", timestamp: "2026-08-24T14:08:00.000Z" },
+                    ]
+                },
+                {
+                    name: "이상민",
+                    isHost: false,
+                    isReady: true
+                },
+                {
+                    name: "이상민",
+                    isHost: false,
+                    isReady: false
+                }
+            ]
+        };
+
+        document.getElementById("room-name").textContent = roomData.roomName;
+        document.getElementById("room-time").textContent = roomData.time;
+
+        const participantList = document.getElementById("participant-list");
+
+        roomData.members.forEach(member => {
+            const participant = document.createElement("div");
+
+            const statusText = member.isHost
+                ? "방장"
+                : member.isReady
+                    ? "준비완료"
+                    : "준비중";
+
+            const statusColor = member.isHost
+                ? "text-[#ffffff]"
+                : member.isReady
+                    ? "text-[#05D082]"
+                    : "text-[#DC4778]";
+
+            participant.className = `
+                h-[60px]
+                rounded-[12px]
+
+                bg-[#666666]/75
+
+                px-[30px]
+
+                flex
+                items-center
+                justify-between
+            `;
+
+            participant.innerHTML = `
+                <span class="
+                    text-[24px]
+                    leading-none
+                    font-normal
+                ">
+                    ${member.name}
+                </span>
+
+                <span class="
+                    text-[21px]
+                    leading-none
+                    font-bold
+                    ${statusColor}
+                ">
+                    ${statusText}
+                </span>
+            `;
+
+            participantList.appendChild(participant);
+        });
+
+        document.fonts.ready.then(() => {
+            document.documentElement.classList.add("fonts-loaded");
+        });
+    </script>
+
+</body>
+
+</html>

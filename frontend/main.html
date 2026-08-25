@@ -73,8 +73,8 @@
             inset-0
 
             bg-linear-180
-            from-[#000000]/90 from-30%
-            to-[#000000]/75 to-100%
+            from-[#000000]/80 from-30%
+            to-[#000000]/65 to-100%
         "></div>
 
         <div class="
@@ -83,12 +83,15 @@
             right-[env(safe-area-inset-right)]
             top-[env(safe-area-inset-top)]
             bottom-[env(safe-area-inset-bottom)]
+
+            flex
+            flex-col
         ">
+
             <header class="
-                absolute
-                top-[28px]
-                left-[28px]
-                right-[29px]
+                h-[84px]
+                px-[30px]
+                shrink-0
 
                 flex
                 items-center
@@ -102,7 +105,6 @@
                 ">
                     <img
                         src="./images/account_circle.svg"
-                        alt=""
                         class="
                             h-[35px]
                             w-[35px]
@@ -113,7 +115,6 @@
                         text-[20px]
                         leading-none
                         font-light
-                        whitespace-nowrap
                     ">
                         <span class="font-bold "> 이상민</span>님 안녕하세요!
                     </span>
@@ -131,7 +132,6 @@
                 >
                     <img
                         src="./images/menu.svg"
-                        alt=""
                         class="
                             h-[28px]
                             w-[28px]
@@ -141,13 +141,18 @@
 
             </header>
 
+            <div class="
+                mx-[20px]
+                h-px
+                shrink-0
+                bg-white/20
+            "></div>
+
             <div
                 id="room-list"
                 class="
-                    absolute
-                    top-[84px]
-                    left-[12px]
-                    right-[12px]
+                    mx-[12px]
+                    mt-[30px]
 
                     flex
                     flex-col
@@ -172,10 +177,6 @@
                     text-[18px]
                     leading-none
                     font-extrabold
-
-                    cursor-pointer
-                    transition-transform
-                    active:scale-[0.98]
                 "
             >
                 방 만들기
@@ -192,6 +193,7 @@
 
         const rooms = [
             {
+                id: "abc123",
                 type: "런닝",
                 time: "08/24 23:00 ~ 23:30",
                 name: "이상민님의 방",
@@ -199,6 +201,7 @@
                 max: 4
             },
             {
+                id: "abc124",
                 type: "런닝",
                 time: "08/24 23:30 ~ 24:30",
                 name: "아아아악",
@@ -210,8 +213,9 @@
         const roomList = document.getElementById("room-list");
 
         rooms.forEach(room => {
-            const card = document.createElement("div");
-
+            const card = document.createElement("a");
+            // card.href = `./rooms/${room.id}`;
+            card.href = `./sample.html`;
             card.className = `
             h-[125px]
             rounded-[10px]
@@ -230,7 +234,7 @@
                     w-[82px]
                     shrink-0
                     text-[24px]
-                    font-black
+                    font-bold
                 ">
                     ${room.type}
                 </span>
