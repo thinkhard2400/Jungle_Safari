@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+    <link rel="preload" as="image" href="./images/bg.jpeg">
+    <link rel="preload" as="image" href="./images/jg_white.webp">
+    <link rel="preload" as="image" href="./images/jg_green.webp">
+
+    <title>Project 482</title>
+
+    <style>
+        html {
+            visibility: hidden;
+        }
+
+        html.fonts-loaded {
+            visibility: visible;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            font-family: "Pretendard Variable", sans-serif;
+            background: #000;
+        }
+
+        button {
+            font-family: "Pretendard Variable", sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="
+            relative
+            h-screen
+            w-full
+            overflow-hidden
+            bg-[url('./images/bg.jpeg')]
+            bg-cover
+            bg-center
+            text-white
+        ">
+
+        <div class="
+                absolute inset-0
+                bg-linear-180
+                from-[#000000]/90 from-30%
+                via-[#000000]/80 via-50%
+                to-[#000000]/70 to-95%
+            "></div>
+
+
+        <h1 class="
+                absolute
+                top-[112px]
+                left-[42px]
+
+                m-0
+                text-[32px]
+                leading-[1.2]
+                font-black
+                whitespace-nowrap
+            ">
+            PROJECT<br>
+            482
+        </h1>
+
+        <div class="
+                absolute
+                top-[108px]
+                right-[45px]
+
+                text-right
+                text-[32px]
+                leading-[1.2]
+                font-black
+                tracking-[-0.03em]
+                whitespace-nowrap
+            ">
+            <div>일주일</div>
+            <div>4번</div>
+            <div>82분</div>
+            <div>운동하기</div>
+        </div>
+
+        <form class="
+                absolute
+                top-[403px]
+                left-[44px]
+                right-[41px]
+            ">
+
+            <div class="
+                    flex
+                    h-[48px]
+                    items-center
+                ">
+                <label for="user-id" class="
+                        w-[21px]
+                        shrink-0
+
+                        text-[18px]
+                        leading-none
+                        font-normal
+                        tracking-[-0.02em]
+                    ">
+                    ID
+                </label>
+
+                <input id="user-id" name="id" type="text" autocomplete="username" aria-label="ID" class="
+                        ml-[17px]
+
+                        h-[48px]
+                        min-w-0
+                        flex-1
+
+                        rounded-[20px]
+                        border-0
+
+                        bg-white
+                        px-[20px]
+
+                        text-[18px]
+                        font-medium
+                        text-black
+
+                        shadow-none
+                    ">
+            </div>
+
+            <div class="
+                    mt-[12px]
+                    flex
+                    h-[48px]
+                    items-center
+                ">
+                <label for="user-password" class="
+                        w-[21px]
+                        shrink-0
+
+                        text-[18px]
+                        leading-none
+                        font-normal
+                        tracking-[-0.02em]
+                    ">
+                    PW
+                </label>
+
+                <input id="user-password" name="password" type="password" autocomplete="current-password"
+                    aria-label="Password" class="
+                        ml-[17px]
+
+                        h-[48px]
+                        min-w-0
+                        flex-1
+
+                        rounded-[20px]
+                        border-0
+
+                        bg-white
+                        px-[20px]
+
+                        text-[18px]
+                        font-medium
+                        text-black
+
+                        shadow-none
+                    ">
+            </div>
+
+            <button type="submit" class="
+                    mt-[13px]
+                    ml-auto
+                    block
+
+                    h-[48px]
+                    w-[161px]
+
+                    rounded-[20px]
+
+                    bg-[#05D082]
+                    text-white
+
+                    text-[18px]
+                    leading-none
+                    font-extrabold
+
+                    cursor-pointer
+
+                    transition-transform
+                    active:scale-[0.98]
+                ">
+                Log in
+            </button>
+
+        </form>
+
+        </div>
+
+        <img src="./images/jg_white.webp" class="
+                absolute
+                right-[27px]
+                bottom-[98px]
+                w-[175px]
+                h-auto
+                object-contain
+            ">
+
+    </main>
+    <script>
+        document.fonts.ready.then(() => {
+            document.documentElement.classList.add("fonts-loaded");
+        });
+    </script>
+</body>
+
+</html>

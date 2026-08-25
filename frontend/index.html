@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+    <link rel="preload" as="image" href="./images/bg.jpeg">
+    <link rel="preload" as="image" href="./images/jg_white.webp">
+    <link rel="preload" as="image" href="./images/jg_green.webp">
+
+    <title>Project 482</title>
+
+    <style>
+        html {
+            visibility: hidden;
+        }
+
+        html.fonts-loaded {
+            visibility: visible;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            font-family: "Pretendard Variable", sans-serif;
+            background: #000;
+        }
+
+        button {
+            font-family: "Pretendard Variable", sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="
+            relative
+            h-screen
+            w-full
+            overflow-hidden
+            bg-[url('./images/bg.jpeg')]
+            bg-cover
+            bg-center
+            text-white
+        ">
+
+        <div class="
+                absolute inset-0
+                bg-linear-180
+                from-[#000000]/90 from-30%
+                via-[#000000]/80 via-50%
+                to-[#000000]/70 to-95%
+            "></div>
+
+
+        <h1 class="
+                absolute
+                top-[112px]
+                left-[42px]
+
+                m-0
+                text-[32px]
+                leading-[1.2]
+                font-black
+                whitespace-nowrap
+            ">
+            PROJECT<br>
+            482
+        </h1>
+
+        <div class="
+                absolute
+                top-[108px]
+                right-[45px]
+
+                text-right
+                text-[32px]
+                leading-[1.2]
+                font-black
+                tracking-[-0.03em]
+                whitespace-nowrap
+            ">
+            <div>일주일</div>
+            <div>4번</div>
+            <div>82분</div>
+            <div>운동하기</div>
+        </div>
+
+        <div class="
+                absolute
+                top-[452px]
+                left-1/2
+                w-[240px]
+                -translate-x-1/2
+
+                flex
+                flex-col
+                gap-[24px]
+            ">
+
+            <button type="button" class="
+                    h-[48px]
+                    w-full
+                    rounded-[20px]
+
+                    bg-white
+                    text-black
+
+                    text-[18px]
+                    leading-none
+                    font-extrabold
+
+                    cursor-pointer
+                    transition-transform
+                    active:scale-[0.98]
+                ">
+                Log in
+            </button>
+
+
+            <button type="button" class="
+                    h-[48px]
+                    w-full
+                    rounded-[20px]
+
+                    bg-[#05D082]
+                    text-white
+
+                    text-[18px]
+                    leading-none
+                    font-extrabold
+
+                    cursor-pointer
+                    transition-transform
+                    active:scale-[0.98]
+                ">
+                Sign up
+            </button>
+
+        </div>
+
+        <img src="./images/jg_white.webp" alt="Jungle by KRAFTON" class="
+                absolute
+                right-[27px]
+                bottom-[98px]
+                w-[175px]
+                h-auto
+                object-contain
+            ">
+
+    </main>
+    <script>
+        document.fonts.ready.then(() => {
+            document.documentElement.classList.add("fonts-loaded");
+        });
+    </script>
+</body>
+
+</html>

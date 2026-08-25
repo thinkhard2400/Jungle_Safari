@@ -2,7 +2,7 @@
 
 ### Tech Spec 
 * FrontEnd : HTML, CSS, JavaScript
-* BackEnd : Python, Flask, 
+* BackEnd : Python(3.14.3), Flask, Jinja2
 
 ### Features
 <ol>
