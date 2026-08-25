@@ -4,17 +4,39 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="stylesheet" crossorigin
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link
+        rel="preconnect"
+        href="https://cdn.jsdelivr.net"
+        crossorigin
+    >
+    <link
+        rel="stylesheet"
+        crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    >
 
-    <link rel="preload" as="image" href="./images/bg.jpeg">
-    <link rel="preload" as="image" href="./images/jg_white.webp">
-    <link rel="preload" as="image" href="./images/jg_green.webp">
+    <link
+        rel="preload"
+        as="image"
+        href="./images/bg.jpeg"
+    >
+    <link
+        rel="preload"
+        as="image"
+        href="./images/jg_white.webp"
+    >
+    <link
+        rel="preload"
+        as="image"
+        href="./images/jg_green.webp"
+    >
 
     <title>Project 482</title>
 
@@ -88,15 +110,15 @@
                 right-[45px]
 
                 text-right
-                text-[32px]
+                text-[24px]
                 leading-[1.2]
-                font-black
+                font-bold
                 tracking-[-0.03em]
                 whitespace-nowrap
             ">
-            <div>일주일</div>
-            <div>4번</div>
-            <div>82분</div>
+            <div>일주일에</div>
+            <div><span class="font-black ">4 </span>번</div>
+            <div><span class="font-black">82 </span>분</div>
             <div>운동하기</div>
         </div>
 
@@ -112,7 +134,10 @@
                 gap-[24px]
             ">
 
-            <button type="button" class="
+            <button
+                type="button"
+                onclick="location.href='./login.html'"
+                class="
                     h-[48px]
                     w-full
                     rounded-[20px]
@@ -127,12 +152,15 @@
                     cursor-pointer
                     transition-transform
                     active:scale-[0.98]
-                ">
+                "
+            >
                 Log in
             </button>
 
 
-            <button type="button" class="
+            <button
+                type="button"
+                class="
                     h-[48px]
                     w-full
                     rounded-[20px]
@@ -147,20 +175,25 @@
                     cursor-pointer
                     transition-transform
                     active:scale-[0.98]
-                ">
+                "
+            >
                 Sign up
             </button>
 
         </div>
 
-        <img src="./images/jg_white.webp" alt="Jungle by KRAFTON" class="
+        <img
+            src="./images/jg_white.webp"
+            alt="Jungle by KRAFTON"
+            class="
                 absolute
                 right-[27px]
                 bottom-[98px]
                 w-[175px]
                 h-auto
                 object-contain
-            ">
+            "
+        >
 
     </main>
     <script>

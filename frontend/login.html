@@ -4,17 +4,39 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="stylesheet" crossorigin
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link
+        rel="preconnect"
+        href="https://cdn.jsdelivr.net"
+        crossorigin
+    >
+    <link
+        rel="stylesheet"
+        crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    >
 
-    <link rel="preload" as="image" href="./images/bg.jpeg">
-    <link rel="preload" as="image" href="./images/jg_white.webp">
-    <link rel="preload" as="image" href="./images/jg_green.webp">
+    <link
+        rel="preload"
+        as="image"
+        href="./images/bg.jpeg"
+    >
+    <link
+        rel="preload"
+        as="image"
+        href="./images/jg_white.webp"
+    >
+    <link
+        rel="preload"
+        as="image"
+        href="./images/jg_green.webp"
+    >
 
     <title>Project 482</title>
 
@@ -31,15 +53,12 @@
             width: 100%;
             height: 100%;
             margin: 0;
-        }
-
-        body {
-            font-family: "Pretendard Variable", sans-serif;
             background: #000;
+
+            font-family: "Pretendard Variable", sans-serif;
         }
 
         button {
-            font-family: "Pretendard Variable", sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
     </style>
@@ -88,15 +107,15 @@
                 right-[45px]
 
                 text-right
-                text-[32px]
+                text-[24px]
                 leading-[1.2]
-                font-black
+                font-bold
                 tracking-[-0.03em]
                 whitespace-nowrap
             ">
-            <div>일주일</div>
-            <div>4번</div>
-            <div>82분</div>
+            <div>일주일에</div>
+            <div><span class="font-black ">4 </span>번</div>
+            <div><span class="font-black">82 </span>분</div>
             <div>운동하기</div>
         </div>
 
@@ -112,7 +131,9 @@
                     h-[48px]
                     items-center
                 ">
-                <label for="user-id" class="
+                <label
+                    for="user-id"
+                    class="
                         w-[21px]
                         shrink-0
 
@@ -120,11 +141,18 @@
                         leading-none
                         font-normal
                         tracking-[-0.02em]
-                    ">
+                    "
+                >
                     ID
                 </label>
 
-                <input id="user-id" name="id" type="text" autocomplete="username" aria-label="ID" class="
+                <input
+                    id="user-id"
+                    name="id"
+                    type="text"
+                    autocomplete="username"
+                    aria-label="ID"
+                    class="
                         ml-[17px]
 
                         h-[48px]
@@ -142,7 +170,8 @@
                         text-black
 
                         shadow-none
-                    ">
+                    "
+                >
             </div>
 
             <div class="
@@ -151,7 +180,9 @@
                     h-[48px]
                     items-center
                 ">
-                <label for="user-password" class="
+                <label
+                    for="user-password"
+                    class="
                         w-[21px]
                         shrink-0
 
@@ -159,12 +190,18 @@
                         leading-none
                         font-normal
                         tracking-[-0.02em]
-                    ">
+                    "
+                >
                     PW
                 </label>
 
-                <input id="user-password" name="password" type="password" autocomplete="current-password"
-                    aria-label="Password" class="
+                <input
+                    id="user-password"
+                    name="password"
+                    type="password"
+                    autocomplete="current-password"
+                    aria-label="Password"
+                    class="
                         ml-[17px]
 
                         h-[48px]
@@ -182,10 +219,14 @@
                         text-black
 
                         shadow-none
-                    ">
+                    "
+                >
             </div>
 
-            <button type="submit" class="
+            <button
+                type="button"
+                onclick="location.href='./main.html'"
+                class="
                     mt-[13px]
                     ml-auto
                     block
@@ -206,22 +247,24 @@
 
                     transition-transform
                     active:scale-[0.98]
-                ">
+                "
+            >
                 Log in
             </button>
 
         </form>
 
-        </div>
-
-        <img src="./images/jg_white.webp" class="
+        <img
+            src="./images/jg_white.webp"
+            class="
                 absolute
                 right-[27px]
                 bottom-[98px]
                 w-[175px]
                 h-auto
                 object-contain
-            ">
+            "
+        >
 
     </main>
     <script>
