@@ -49,12 +49,16 @@
             visibility: visible;
         }
 
+        html,
         body {
             width: 100%;
             height: 100%;
             margin: 0;
-            background: #000;
+            overflow: hidden;
+        }
 
+        body {
+            background: #000;
             font-family: "Pretendard Variable", sans-serif;
         }
 
@@ -68,7 +72,7 @@
 
     <main class="
             relative
-            h-screen
+            h-dvh
             w-full
             overflow-hidden
             bg-[url('./images/bg.jpeg')]
@@ -78,200 +82,213 @@
         ">
 
         <div class="
-                absolute inset-0
+                absolute
+                inset-0
                 bg-linear-180
                 from-[#000000]/90 from-30%
                 via-[#000000]/80 via-50%
                 to-[#000000]/70 to-95%
             "></div>
 
-
-        <h1 class="
-                absolute
-                top-[112px]
-                left-[42px]
-
-                m-0
-                text-[32px]
-                leading-[1.2]
-                font-black
-                whitespace-nowrap
-            ">
-            PROJECT<br>
-            482
-        </h1>
-
         <div class="
                 absolute
-                top-[108px]
-                right-[45px]
-
-                text-right
-                text-[24px]
-                leading-[1.2]
-                font-bold
-                tracking-[-0.03em]
-                whitespace-nowrap
+                top-[env(safe-area-inset-top)]
+                right-[env(safe-area-inset-right)]
+                bottom-[env(safe-area-inset-bottom)]
+                left-[env(safe-area-inset-left)]
             ">
-            <div>일주일에</div>
-            <div><span class="font-black ">4 </span>번</div>
-            <div><span class="font-black">82 </span>분</div>
-            <div>운동하기</div>
-        </div>
 
-        <form class="
-                absolute
-                top-[403px]
-                left-[44px]
-                right-[41px]
-            ">
+            <h1 class="
+                    absolute
+                    top-[30px]
+                    left-[30px]
+
+                    m-0
+                    text-[32px]
+                    leading-[1.2]
+                    font-black
+                    whitespace-nowrap
+                ">
+                PROJECT<br>
+                482
+            </h1>
 
             <div class="
-                    flex
-                    h-[48px]
-                    items-center
+                    absolute
+                    top-[30px]
+                    right-[30px]
+
+                    text-right
+                    text-[24px]
+                    leading-[1.2]
+                    font-bold
+                    tracking-[-0.03em]
+                    whitespace-nowrap
                 ">
-                <label
-                    for="user-id"
+                <div>일주일에</div>
+                <div><span class="font-black">4 </span>번</div>
+                <div><span class="font-black">82 </span>분</div>
+                <div>운동하기</div>
+            </div>
+
+            <form class="
+                    absolute
+                    top-1/2
+                    left-[45px]
+                    right-[45px]
+                    -translate-y-1/2
+                ">
+
+                <div class="
+                        flex
+                        h-[48px]
+                        items-center
+                    ">
+                    <label
+                        for="user-id"
+                        class="
+                            w-[21px]
+                            shrink-0
+
+                            text-[18px]
+                            leading-none
+                            font-normal
+                            tracking-[-0.02em]
+                        "
+                    >
+                        ID
+                    </label>
+
+                    <input
+                        id="user-id"
+                        name="id"
+                        type="text"
+                        autocomplete="username"
+                        aria-label="ID"
+                        class="
+                            ml-[17px]
+
+                            h-[48px]
+                            min-w-0
+                            flex-1
+
+                            rounded-[20px]
+                            border-0
+
+                            bg-white
+                            px-[20px]
+
+                            text-[18px]
+                            font-medium
+                            text-black
+
+                            shadow-none
+                        "
+                    >
+                </div>
+
+                <div class="
+                        mt-[12px]
+                        flex
+                        h-[48px]
+                        items-center
+                    ">
+                    <label
+                        for="user-password"
+                        class="
+                            w-[21px]
+                            shrink-0
+
+                            text-[18px]
+                            leading-none
+                            font-normal
+                            tracking-[-0.02em]
+                        "
+                    >
+                        PW
+                    </label>
+
+                    <input
+                        id="user-password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        aria-label="Password"
+                        class="
+                            ml-[17px]
+
+                            h-[48px]
+                            min-w-0
+                            flex-1
+
+                            rounded-[20px]
+                            border-0
+
+                            bg-white
+                            px-[20px]
+
+                            text-[18px]
+                            font-medium
+                            text-black
+
+                            shadow-none
+                        "
+                    >
+                </div>
+
+                <button
+                    type="button"
+                    onclick="location.href='./main.html'"
                     class="
-                        w-[21px]
-                        shrink-0
+                        mt-[13px]
+                        ml-auto
+                        block
+
+                        h-[48px]
+                        w-[161px]
+
+                        rounded-[20px]
+
+                        bg-[#05D082]
+                        text-white
 
                         text-[18px]
                         leading-none
-                        font-normal
-                        tracking-[-0.02em]
+                        font-extrabold
+
+                        cursor-pointer
+
+                        transition-transform
+                        active:scale-[0.98]
                     "
                 >
-                    ID
-                </label>
+                    Log in
+                </button>
 
-                <input
-                    id="user-id"
-                    name="id"
-                    type="text"
-                    autocomplete="username"
-                    aria-label="ID"
-                    class="
-                        ml-[17px]
+            </form>
 
-                        h-[48px]
-                        min-w-0
-                        flex-1
-
-                        rounded-[20px]
-                        border-0
-
-                        bg-white
-                        px-[20px]
-
-                        text-[18px]
-                        font-medium
-                        text-black
-
-                        shadow-none
-                    "
-                >
-            </div>
-
-            <div class="
-                    mt-[12px]
-                    flex
-                    h-[48px]
-                    items-center
-                ">
-                <label
-                    for="user-password"
-                    class="
-                        w-[21px]
-                        shrink-0
-
-                        text-[18px]
-                        leading-none
-                        font-normal
-                        tracking-[-0.02em]
-                    "
-                >
-                    PW
-                </label>
-
-                <input
-                    id="user-password"
-                    name="password"
-                    type="password"
-                    autocomplete="current-password"
-                    aria-label="Password"
-                    class="
-                        ml-[17px]
-
-                        h-[48px]
-                        min-w-0
-                        flex-1
-
-                        rounded-[20px]
-                        border-0
-
-                        bg-white
-                        px-[20px]
-
-                        text-[18px]
-                        font-medium
-                        text-black
-
-                        shadow-none
-                    "
-                >
-            </div>
-
-            <button
-                type="button"
-                onclick="location.href='./main.html'"
+            <img
+                src="./images/jg_white.webp"
+                alt=""
                 class="
-                    mt-[13px]
-                    ml-auto
-                    block
-
-                    h-[48px]
-                    w-[161px]
-
-                    rounded-[20px]
-
-                    bg-[#05D082]
-                    text-white
-
-                    text-[18px]
-                    leading-none
-                    font-extrabold
-
-                    cursor-pointer
-
-                    transition-transform
-                    active:scale-[0.98]
+                    absolute
+                    right-[20px]
+                    bottom-[20px]
+                    w-[175px]
+                    h-auto
                 "
             >
-                Log in
-            </button>
 
-        </form>
-
-        <img
-            src="./images/jg_white.webp"
-            class="
-                absolute
-                right-[27px]
-                bottom-[98px]
-                w-[175px]
-                h-auto
-                object-contain
-            "
-        >
+        </div>
 
     </main>
+
     <script>
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");
         });
     </script>
+
 </body>
 
 </html>
