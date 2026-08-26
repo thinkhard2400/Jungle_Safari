@@ -157,6 +157,9 @@
             rooms.forEach(room => {
                 const card = document.createElement("a");
 
+                const [date, ...timeParts] = room.time.split(" ");
+                const time = timeParts.join(" ");
+
                 card.href = `./room?roomId=${encodeURIComponent(room.id)}`;
 
                 card.className = `
@@ -175,7 +178,7 @@
 
                         flex
                         items-center
-                        gap-[20px]
+                        gap-[10px]
                     ">
 
                         <img
@@ -186,41 +189,51 @@
                                 w-[42px]
                             "
                         >
-
                         <div class="
+                            flex-1
                             flex
                             flex-col
-                            gap-[6px]
                         ">
-                            <span class="
-                                text-[18px]
-                                font-semibold
-                            ">
-                                ${room.time}
-                            </span>
-
                             <span class="
                                 text-[16px]
                                 font-normal
                             ">
-                                ${room.name}
+                                ${date}
                             </span>
+                            <span class="
+                                mt-[1px]
+                                text-[18px]
+                                font-semibold
+                            ">
+                                ${time}
+                            </span>
+                            <div class="
+                                mt-[7px]
+                                flex
+                                items-center
+                                justify-between
+                            ">
+                                <span class="
+                                    text-[16px]
+                                    font-normal
+                                ">
+                                    ${room.name}
+                                </span>
+                                <span class="
+                                    room-count
+                                    text-[14px]
+                                    font-medium
+                                ">
+                                    ${room.members.length}/${room.max}
+                                </span>
+
+                            </div>
+
                         </div>
-
-                        <span class="
-                            room-count
-                            ml-auto
-                            self-end
-
-                            text-[14px]
-                            font-medium
-                            text-white/80
-                        ">
-                            ${room.members.length} / ${room.max}
-                        </span>
 
                     </div>
                 `;
+
                 card.addEventListener("click", async (event) => {
                     event.preventDefault();
 
