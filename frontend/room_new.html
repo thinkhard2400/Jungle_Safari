@@ -385,7 +385,7 @@
                     return;
                 }
 
-                location.href = "./room";
+                location.href = `./room?roomId=${encodeURIComponent(result.room.id)}`;
             } catch (error) {
                 alert("방 생성 요청에 실패했습니다.");
             }
