@@ -24,33 +24,30 @@ headerArea.innerHTML = `
                 class="
                     h-[35px]
                     w-[35px]
-                "
-            >
+                ">
 
             <span class="
                 text-[20px]
                 leading-none
                 font-light
             ">
-                <span class="font-bold">${user.name}</span>님 안녕하세요!
+            <span
+                id="header-user-name"
+                class="font-bold"
+                ></span>님 안녕하세요!
             </span>
         </div>
 
         <button
             id="menu-button"
-            class="
-                ml-auto
-            "
-        >
+            class="ml-auto">
             <img
                 src="./images/menu.svg"
                 class="
                     h-[28px]
                     w-[28px]
-                "
-            >
+                ">
         </button>
-
     </header>
 
     <div class="
@@ -58,8 +55,6 @@ headerArea.innerHTML = `
         h-[1px]
         bg-white/20
     "></div>
-
-
     <div
         id="drawer-overlay"
         class="
@@ -70,8 +65,6 @@ headerArea.innerHTML = `
             bg-black/60
         "
     ></div>
-
-
     <div
         id="drawer"
         class="
@@ -85,8 +78,7 @@ headerArea.innerHTML = `
 
             bg-[#111111]
             text-white
-        "
-    >
+        ">
 
         <div class="
             pt-[100px]
@@ -107,18 +99,15 @@ headerArea.innerHTML = `
                     class="
                         h-[35px]
                         w-[35px]
+                    ">
+                 <span
+                    id="drawer-user-name"
+                    class="
+                        text-[20px]
+                        font-bold
                     "
-                >
-
-                <span class="
-                    text-[20px]
-                    font-bold
-                ">
-                    ${user.name}님
-                </span>
+                ></span>
             </div>
-
-
             <div class="
                 mt-[70px]
 
@@ -127,7 +116,6 @@ headerArea.innerHTML = `
                 items-center
                 gap-[42px]
             ">
-
                 <button 
                     onclick="location.href='./mypage.html'"
                     class="
@@ -137,7 +125,6 @@ headerArea.innerHTML = `
                     ">
                         기록 확인하기
                 </button>
-
                 <button 
                     onclick="location.href='./index.html'"
                     class="
@@ -147,11 +134,8 @@ headerArea.innerHTML = `
                 ">
                     로그아웃
                 </button>
-
             </div>
-
         </div>
-
     </div>
 `;
 
@@ -160,6 +144,13 @@ const menuButton = document.getElementById("menu-button");
 const drawer = document.getElementById("drawer");
 const drawerOverlay = document.getElementById("drawer-overlay");
 
+storeReady.then(() => {
+    document.getElementById("header-user-name").textContent =
+        user.name;
+
+    document.getElementById("drawer-user-name").textContent =
+        `${user.name}님`;
+});
 
 menuButton.addEventListener("click", () => {
     drawer.classList.remove("hidden");
