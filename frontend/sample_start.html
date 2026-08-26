@@ -201,13 +201,6 @@
     </main>
 
     <script>
-        /*
-            const response = await fetch(`/api/rooms/${roomId}`);
-            const roomData = await response.json();
-            const serverOffset =
-                serverTimestamp + (rtt / 2) - t1;
-        */
-
         document.getElementById("room-name").textContent = roomData.roomName;
         document.getElementById("room-time").textContent = roomData.time;
 

@@ -21,6 +21,14 @@ def signup():
 def main():
     return render_template("main.html")
 
+@page_bp.route("/room")
+def room():
+    return render_template("room.html")
+
+@page_bp.route("/complete")
+def complete():
+    return render_template("complete.html")
+
 @page_bp.route("/sangmin/time")
 def sangmin_time():
     received_at = time.time_ns()

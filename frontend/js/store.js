@@ -120,7 +120,10 @@ let roomData = {
 };
 
 const workoutRecords = [
-
+    {
+        date: "2026-08-26T10:00:00.000Z",
+        time: 6612944
+    },
     {
         date: "2026-09-02T12:15:00.000Z",
         time: 1275000

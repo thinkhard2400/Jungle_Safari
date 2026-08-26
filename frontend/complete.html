@@ -168,7 +168,7 @@
                             font-bold
                         "
                         >
-                            8월 둘째주
+                            불러오는 중..
                         </div>
 
                         <img
@@ -276,14 +276,44 @@
             ];
         };
 
+
+        function getDateKey(date) {
+            return (
+                date.getFullYear() + "-" +
+                String(date.getMonth() + 1).padStart(2, "0") + "-" +
+                String(date.getDate()).padStart(2, "0")
+            );
+        }
+
+        function getWeekKey(date) {
+            const monday = new Date(date);
+
+            monday.setDate(
+                date.getDate() - (date.getDay() === 0 ? 6 : date.getDay() - 1)
+            );
+
+            return getDateKey(monday);
+        }
+
+        let thisWeek = 0;
+        const weekKey = getWeekKey(new Date(getServerNow()));
+
+        workoutRecords.forEach(record => {
+            const date = new Date(record.date);
+
+            if (getWeekKey(date) === weekKey) {
+                thisWeek += record.time;
+            }
+        });
+
+        console.log(thisWeek);
+
         const workoutProgress = document.getElementById("workout-progress");
         const workoutTimeText = document.getElementById("workout-time");
 
         const goalTime = 82 * 60 * 1000;
 
-        const workoutTime =
-            87 * 60 * 1000 +
-            42 * 1000;
+        const workoutTime = thisWeek;
 
         function getProgressBackground(time) {
 
