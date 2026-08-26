@@ -51,7 +51,7 @@ headerArea.innerHTML = `
         </button>
     </header>
     <div class="
-        mx-[20px]
+        mx-[10px]
         h-[1px]
         bg-white/20
     "></div>
@@ -75,6 +75,7 @@ headerArea.innerHTML = `
             top-0
             right-0
             bottom-0
+            z-[1000]
 
             w-[75%]
 
@@ -118,6 +119,15 @@ headerArea.innerHTML = `
                 items-center
                 gap-[42px]
             ">
+                <button 
+                    onclick="location.href='./main.html'"
+                    class="
+                        text-[20px]
+                        font-bold
+                        text-white
+                    ">
+                        메인페이지로
+                </button>
                 <button 
                     onclick="location.href='./mypage.html'"
                     class="
