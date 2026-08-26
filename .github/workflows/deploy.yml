@@ -20,5 +20,5 @@ jobs:
             git pull origin main
             source venv/bin/activate
             pip install -r backend/requirements.txt
-            pkill -f "gunicorn.*backend" || true
-            nohup gunicorn --chdir backend app:app --bind 0.0.0.0:5000 > gunicorn.log 2>&1 &
+            pkill -x gunicorn || true
+            nohup ./venv/bin/gunicorn --chdir backend app:app --bind 0.0.0.0:5000 > gunicorn.log 2>&1 &
