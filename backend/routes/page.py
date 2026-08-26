@@ -38,7 +38,7 @@ def mypage():
         {"_id": 0, "password": 0}
     )
     return render_template(
-        "main.html",
+        "mypage.html",
         me=me,
     )
 
