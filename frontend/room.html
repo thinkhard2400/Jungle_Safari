@@ -98,33 +98,84 @@
                 pt-[30px]
             ">
 
-                <div
-                    id="room-name"
-                    class="
-                        text-[30px]
-                        leading-none
-                        font-bold
-                    "
-                >
-                    로딩중..
-                </div>
+                <div class="
+                    flex
+                    items-start
+                    gap-[20px]
+                ">
 
-                <div
-                    id="room-time"
-                    class="
-                        mt-[34px]
+                    <img
+                        id="room-icon"
+                        src="./images/sports_run.svg"
+                        class="
+                            mt-[4px]
+                            h-[42px]
+                            w-[42px]
+                        "
+                    >
 
-                        text-[27px]
-                        leading-none
-                        font-normal
-                        whitespace-nowrap
-                    "
-                >
-                    서버가 아파요 ㅜㅜ
+                    <div class="
+                        flex-1
+                        flex
+                        flex-col
+                    ">
+
+                        <div class="
+                            flex
+                            items-center
+                            justify-between
+                        ">
+                            <span
+                                id="room-date"
+                                class="
+                                    text-[20px]
+                                    font-normal
+                                "
+                            >
+                                로딩중..
+                            </span>
+
+                            <span
+                                id="room-count"
+                                class="
+                                    text-[18px]
+                                    font-thin
+                                "
+                            >
+                                0/0
+                            </span>
+                        </div>
+
+                        <span
+                            id="room-time"
+                            class="
+                                -mt-[5px]
+
+                                text-[20px]
+                                font-bold
+                                whitespace-nowrap
+                            "
+                        >
+                            --:-- ~ --:--
+                        </span>
+
+                        <span
+                            id="room-name"
+                            class="
+                                mt-[4px]
+
+                                text-[20px]
+                                font-normal
+                            "
+                        >
+                            방 이름
+                        </span>
+
+                    </div>
+
                 </div>
 
             </section>
-
             <div
                 id="participant-list"
                 class="
@@ -179,7 +230,8 @@
                         text-[20px]
                         leading-none
                         font-extrabold
-                    ">
+                    "
+                >
                     나가기
                 </button>
 
@@ -190,6 +242,15 @@
     </main>
 
     <script>
+
+        const sportIcons = {
+            "농구": "sports_basketball.svg",
+            "헬스": "sports_gym.svg",
+            "런닝": "sports_run.svg",
+            "축구": "sports_soccer.svg",
+            "스트레칭": "sports_stretching.svg",
+        };
+
         const participantList = document.getElementById("participant-list");
         const primaryAction = document.getElementById("primary-action");
         const secondaryAction = document.getElementById("secondary-action");
@@ -273,9 +334,17 @@
                 }
 
                 const roomData = result.room;
-                document.getElementById("room-name").textContent = roomData.name;
-                document.getElementById("room-time").textContent = roomData.time;
+                const [date, ...timeParts] = roomData.time.split(" ");
+                const time = timeParts.join(" ");
 
+                document.getElementById("room-icon").src =
+                    `./images/${sportIcons[roomData.type] || sportIcons["런닝"]}`;
+
+                document.getElementById("room-date").textContent = date;
+                document.getElementById("room-time").textContent = time;
+                document.getElementById("room-name").textContent = roomData.name;
+                document.getElementById("room-count").textContent =
+                    `${roomData.members.length}/${roomData.max}`;
                 const currentMember = roomData.members.find(
                     member => member.id === localStorage.getItem("userId")
                 );
