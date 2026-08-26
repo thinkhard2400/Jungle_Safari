@@ -45,7 +45,7 @@ def create_log(start_time, end_time):
     
     return logs;
 
-
+## range length == 생성할 데이터 갯수
 for i in range(15):
     tmax = random.randint(2,4)
     status = random.choice(room_status)
