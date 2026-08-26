@@ -269,6 +269,35 @@
         addTimeOptions("#room-time-start");
         addTimeOptions("#room-time-end");
 
+        function setDefaultRoomValues() {
+            document.querySelector("#room-name").value = "런닝 할 사람 번개!!!";
+
+            const today = new Date();
+            const date = [
+                today.getFullYear(),
+                String(today.getMonth() + 1).padStart(2, "0"),
+                String(today.getDate()).padStart(2, "0"),
+            ].join("-");
+            document.querySelector("#room-date").value = date;
+
+            const roundedMinutes = Math.ceil(
+                (today.getHours() * 60 + today.getMinutes()) / 10
+            ) * 10;
+            const startMinutes = Math.min(roundedMinutes, 23 * 60 + 30);
+            const endMinutes = startMinutes + 20;
+
+            const toTime = (minutes) => {
+                const hour = String(Math.floor(minutes / 60)).padStart(2, "0");
+                const minute = String(minutes % 60).padStart(2, "0");
+                return `${hour}:${minute}`;
+            };
+
+            document.querySelector("#room-time-start").value = toTime(startMinutes);
+            document.querySelector("#room-time-end").value = toTime(endMinutes);
+        }
+
+        setDefaultRoomValues();
+
         let selectedSport = "런닝";
 
         document.querySelectorAll(".sport-option").forEach((option) => {
