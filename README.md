@@ -1,5 +1,7 @@
 <h1> 482 </h1>
 
+### Service URL
+http://43.201.67.185:5000/
 ### Tech Spec 
 * FrontEnd : HTML, CSS, JavaScript
 * BackEnd : Python(3.14.3), Flask, Jinja2
