@@ -109,13 +109,13 @@ def login():
             identity=user_id,
             expires_delta=timedelta(days=14),
         )
-        response = jsonify({"status": "success", "message": "로그인 성공", "userId": user["id"],"name": user['name']})
+        response = jsonify({"result": "success", "message": "로그인 성공", "userId": user["id"],"name": user['name']})
         response.set_cookie("access_token", access_token, max_age=3600, path="/", secure=False, httponly=True, samesite="Lax")
         response.set_cookie("refresh_token", refresh_token, max_age=604800, path="/", secure=False, httponly=True, samesite="Lax")
         
         return response
     else : 
-        return jsonify({"status": "fail", "message": "비밀번호가 일치하지 않습니다."}), 400
+        return jsonify({"result": "fail", "message": "비밀번호가 일치하지 않습니다."}), 400
 
     
        
