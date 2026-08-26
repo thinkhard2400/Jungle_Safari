@@ -162,3 +162,19 @@
     </div>
 
 </div>
+
+<script>
+    const menuButton = document.getElementById("menu-button");
+    const drawer = document.getElementById("drawer");
+    const drawerOverlay = document.getElementById("drawer-overlay");
+
+    menuButton.addEventListener("click", () => {
+        drawer.classList.remove("hidden");
+        drawerOverlay.classList.remove("hidden");
+    });
+
+    drawerOverlay.addEventListener("click", () => {
+        drawer.classList.add("hidden");
+        drawerOverlay.classList.add("hidden");
+    });
+</script>
