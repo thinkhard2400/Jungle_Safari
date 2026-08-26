@@ -22,8 +22,8 @@ app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
 # API 테스트 단계에서는 쿠키의 CSRF 헤더 검사를 끕니다.
 app.config["JWT_COOKIE_CSRF_PROTECT"] = False
-app.config["JWT_ACCESS_COOKIE_NAME"] = "access_token"
-app.config["JWT_REFRESH_COOKIE_NAME"] = "refresh_token"
+app.config["JWT_ACCESS_COOKIE_NAME"] = "access_token_cookie"
+app.config["JWT_REFRESH_COOKIE_NAME"] = "refresh_token_cookie"
 
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
@@ -115,8 +115,8 @@ def login():
             expires_delta=timedelta(days=14),
         )
         response = jsonify({"result": "success", "message": "로그인 성공", "userId": user["id"],"name": user['name']})
-        response.set_cookie("access_token", access_token, max_age=3600, path="/", secure=False, httponly=True, samesite="Lax")
-        response.set_cookie("refresh_token", refresh_token, max_age=604800, path="/", secure=False, httponly=True, samesite="Lax")
+        response.set_cookie("access_token_cookie", access_token, max_age=3600, path="/", secure=False, httponly=True, samesite="Lax")
+        response.set_cookie("refresh_token_cookie", refresh_token, max_age=604800, path="/", secure=False, httponly=True, samesite="Lax")
         
         return response
     else : 
