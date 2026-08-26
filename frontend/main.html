@@ -169,61 +169,57 @@
             `;
 
                 card.innerHTML = `
-                <div class="
-                    flex
-                    items-center
-                    justify-between
-                ">
+                    <div class="
+                        h-full
 
-                    <span class="
-                        w-[82px]
-
-                        text-[24px]
-                        font-bold
+                        flex
+                        items-center
+                        gap-[20px]
                     ">
+
                         <img
                             src="./images/${sportIcons[room.type] || sportIcons["런닝"]}"
                             alt="${room.type}"
-                            class="h-[34px] w-[34px]"
+                            class="
+                                h-[42px]
+                                w-[42px]
+                            "
                         >
-                    </span>
 
-                    <span class="
-                        text-[18px]
-                        font-normal
-                        whitespace-nowrap
-                    ">
-                        ${room.time}
-                    </span>
+                        <div class="
+                            flex
+                            flex-col
+                            gap-[6px]
+                        ">
+                            <span class="
+                                text-[18px]
+                                font-semibold
+                            ">
+                                ${room.time}
+                            </span>
 
-                </div>
+                            <span class="
+                                text-[16px]
+                                font-normal
+                            ">
+                                ${room.name}
+                            </span>
+                        </div>
 
+                        <span class="
+                            room-count
+                            ml-auto
+                            self-end
 
-                <div class="
-                    mt-[20px]
+                            text-[14px]
+                            font-medium
+                            text-white/80
+                        ">
+                            ${room.members.length} / ${room.max}
+                        </span>
 
-                    flex
-                    items-center
-                    justify-between
-                ">
-
-                    <span class="
-                        text-[18px]
-                    ">
-                        ${room.name}
-                    </span>
-
-                    <span class="
-                        room-count
-                        text-[20px]
-                        font-light
-                    ">
-                        ${room.members.length}/${room.max}
-                    </span>
-
-                </div>
-            `;
-
+                    </div>
+                `;
                 card.addEventListener("click", async (event) => {
                     event.preventDefault();
 
