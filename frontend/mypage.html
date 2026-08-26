@@ -12,14 +12,12 @@
     <link
         rel="preconnect"
         href="https://cdn.jsdelivr.net"
-        crossorigin
     >
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <link
         rel="stylesheet"
-        crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
     >
 
@@ -63,7 +61,6 @@
 </head>
 
 <body>
-
     <main class="
         relative
         h-dvh
@@ -76,7 +73,6 @@
 
         text-white
     ">
-
         <div class="
             absolute
             inset-0
@@ -85,7 +81,6 @@
             from-[#000000]/80 from-30%
             to-[#000000]/65 to-100%
         "></div>
-
 
         <div class="
             absolute
@@ -98,12 +93,10 @@
             flex-col
         ">
             <div id="header-area"></div>
-
             <section class="
                 mt-[205px]
                 px-[32px]
             ">
-
                 <div class="
                     text-[30px]
                     leading-none
@@ -111,13 +104,11 @@
                 ">
                     운동 기록
                 </div>
-
                 <div class="
                     mt-[28px]
 
                     flex
                 ">
-
                     <div class="
                         w-[34px]
                         pt-[26px]
@@ -125,21 +116,16 @@
                         text-[14px]
                         font-normal
                     ">
-
                         <div>
                             Mon
                         </div>
-
                         <div class="
                             mt-[32px]
                         ">
                             Fri
                         </div>
-
                     </div>
-
                     <div>
-
                         <div class="
                             mb-[8px]
 
@@ -165,17 +151,11 @@
                                 gap-[3px]
                             "
                         ></div>
-
                     </div>
-
                 </div>
-
             </section>
-
         </div>
-
     </main>
-
 
     <script>
         const recordGrid = document.getElementById("record-grid");
@@ -206,15 +186,15 @@
                 return "bg-[#666666]";
             }
 
-            if (time < 1800000) {
+            else if (time < 1800000) {
                 return "bg-[#075F42]";
             }
 
-            if (time < 3600000) {
+            else if (time < 3600000) {
                 return "bg-[#078F5D]";
             }
 
-            if (time < 4920000) {
+            else if (time < 4920000) {
                 return "bg-[#05B873]";
             }
 
@@ -263,7 +243,6 @@
             document.documentElement.classList.add("fonts-loaded");
         });
     </script>
-
 </body>
 
 </html>

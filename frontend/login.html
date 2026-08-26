@@ -14,11 +14,9 @@
     <link
         rel="preconnect"
         href="https://cdn.jsdelivr.net"
-        crossorigin
     >
     <link
         rel="stylesheet"
-        crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
     >
 
@@ -128,10 +126,14 @@
 
             </div>
 
-            <form id="loginForm", class="
+            <form
+                id="loginForm"
+                ,
+                class="
                 w-full
                 px-[45px]
-            ">
+            "
+            >
 
                 <div class="
                     flex
@@ -224,8 +226,8 @@
                 </div>
 
                 <button
-                    type="submit",
-                    
+                    type="submit"
+                    ,
                     class="
                         mt-[13px]
                         ml-auto
@@ -277,7 +279,7 @@
             document.documentElement.classList.add("fonts-loaded");
         });
 
-        $("#loginForm").on("submit", function(e) {
+        $("#loginForm").on("submit", function (e) {
             e.preventDefault();
 
             let id = $("#user-id").val();
@@ -286,12 +288,12 @@
             $.ajax({
                 type: "POST",
                 url: "/api/login",
-                contentType : "application/json",
+                contentType: "application/json",
 
-                data: JSON.stringify({id :id, password: pw }),
-                
-                success: function(response) {
-                    if (response["result"] == "success"){
+                data: JSON.stringify({ id: id, password: pw }),
+
+                success: function (response) {
+                    if (response["result"] == "success") {
                         console.log(response["message"]);
                         console.log(response["name"])
                         localStorage.setItem("userId", response["userId"]);
@@ -300,13 +302,13 @@
                     }
                     console.log(response["message"]);
                 },
-                error: function(xhr) {
-                  console.log(xhr.responseJSON.message);  
+                error: function (xhr) {
+                    console.log(xhr.responseJSON.message);
                 }
             });
         });
-        
-        
+
+
     </script>
 
 </body>

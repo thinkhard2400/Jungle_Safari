@@ -1,9 +1,7 @@
 const headerArea = document.getElementById("header-area");
 
 headerArea.innerHTML = `
-    <div class="
-        bg-black/50
-        ">    
+    <div class="bg-black/50">
 
     <header class="
         h-[54px]
@@ -26,7 +24,10 @@ headerArea.innerHTML = `
                     w-[35px]
                 ">
 
-            <span class="
+            <span 
+                id="header-text"
+                class="
+                hidden
                 text-[20px]
                 leading-none
                 font-light
@@ -49,12 +50,13 @@ headerArea.innerHTML = `
                 ">
         </button>
     </header>
-
     <div class="
         mx-[20px]
         h-[1px]
         bg-white/20
     "></div>
+    </div>
+
     <div
         id="drawer-overlay"
         class="
@@ -145,11 +147,9 @@ const drawer = document.getElementById("drawer");
 const drawerOverlay = document.getElementById("drawer-overlay");
 
 storeReady.then(() => {
-    document.getElementById("header-user-name").textContent =
-        user.name;
-
-    document.getElementById("drawer-user-name").textContent =
-        `${user.name}님`;
+    document.getElementById("header-user-name").textContent = user.name;
+    document.getElementById("drawer-user-name").textContent = `${user.name}님`;
+    document.getElementById("header-text").classList.remove("hidden");
 });
 
 menuButton.addEventListener("click", () => {
