@@ -271,11 +271,28 @@
         </div>
 
     </main>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");
         });
+        
+        function login() {
+            let id = $("$user-id").val();
+            let pw = $("$user-password").val();
+
+            $.ajax({
+                type : "POST",
+                url: "/api/login",
+                data: {id :id, password: pw },
+                success: function(response) {
+                    if (response["result"] == "success"){
+                        console.log(response["token"]);
+                    }
+                    console.log(response);
+                }
+            });
+        }
     </script>
 
 </body>

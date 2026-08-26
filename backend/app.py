@@ -2,7 +2,7 @@ from datetime import datetime
 from uuid import uuid4
 
 import bcrypt
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 from pymongo import MongoClient
 from config import DATABASE_NAME, DEBUG, HOST, MONGO_URI, PORT
@@ -37,7 +37,17 @@ def get_room(room_id):
     return rooms.find_one({"id": room_id}, {"_id": 0})
 
 
-# 2. 회원가입 API
+
+
+### API Route
+
+# 2. 서버가 정상적으로 실행되는지 확인하는 API
+@app.route("/api/health", methods=["GET"])
+def health():
+    return "Project 482 API is running!"
+
+
+# 3. 회원가입 API
 @app.route("/api/signup", methods=["POST"])
 def signup():
     data = request.get_json() or {}
