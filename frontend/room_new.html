@@ -104,6 +104,52 @@
                 </label>
 
                 <div class="border-t border-white/15 py-[14px]">
+                    <span class="block mb-[12px] text-[18px]">운동 선택</span>
+                    <div class="grid grid-cols-5 gap-[6px]">
+                        <button
+                            type="button"
+                            data-sport="농구"
+                            class="sport-option rounded-[12px] p-[6px] text-[11px]"
+                        >
+                            <img src="./images/sports_basketball.svg" alt="농구" class="mx-auto h-[30px]">
+                            <span>농구</span>
+                        </button>
+                        <button
+                            type="button"
+                            data-sport="헬스"
+                            class="sport-option rounded-[12px] p-[6px] text-[11px]"
+                        >
+                            <img src="./images/sports_gym.svg" alt="헬스" class="mx-auto h-[30px]">
+                            <span>헬스</span>
+                        </button>
+                        <button
+                            type="button"
+                            data-sport="런닝"
+                            class="sport-option rounded-[12px] p-[6px] text-[11px] ring-2 ring-[#05D082] bg-[#05D082]/20"
+                        >
+                            <img src="./images/sports_run.svg" alt="런닝" class="mx-auto h-[30px]">
+                            <span>런닝</span>
+                        </button>
+                        <button
+                            type="button"
+                            data-sport="축구"
+                            class="sport-option rounded-[12px] p-[6px] text-[11px]"
+                        >
+                            <img src="./images/sports_soccer.svg" alt="축구" class="mx-auto h-[30px]">
+                            <span>축구</span>
+                        </button>
+                        <button
+                            type="button"
+                            data-sport="스트레칭"
+                            class="sport-option rounded-[12px] p-[6px] text-[11px]"
+                        >
+                            <img src="./images/sports_stretching.svg" alt="스트레칭" class="mx-auto h-[30px]">
+                            <span>스트레칭</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/15 py-[14px]">
                     <button
                         id="date-toggle"
                         type="button"
@@ -223,6 +269,19 @@
         addTimeOptions("#room-time-start");
         addTimeOptions("#room-time-end");
 
+        let selectedSport = "런닝";
+
+        document.querySelectorAll(".sport-option").forEach((option) => {
+            option.addEventListener("click", () => {
+                document.querySelectorAll(".sport-option").forEach((item) => {
+                    item.classList.remove("ring-2", "ring-[#05D082]", "bg-[#05D082]/20");
+                });
+
+                option.classList.add("ring-2", "ring-[#05D082]", "bg-[#05D082]/20");
+                selectedSport = option.dataset.sport;
+            });
+        });
+
         async function createRoom() {
             const hostId = localStorage.getItem("userId");
             const roomName = document.querySelector("#room-name").value.trim();
@@ -253,6 +312,7 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         roomName,
+                        type: selectedSport,
                         time: `${date} ${startTime} ~ ${endTime}`,
                         maxMembers,
                         hostId,
