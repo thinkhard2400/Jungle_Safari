@@ -138,7 +138,9 @@ headerArea.innerHTML = `
                         기록 확인하기
                 </button>
 
-                <button class="
+                <button 
+                    onclick="location.href='./index.html'"
+                    class="
                     text-[20px]
                     font-bold
                     text-white

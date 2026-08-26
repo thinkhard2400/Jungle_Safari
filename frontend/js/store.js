@@ -1,34 +1,66 @@
-const serverOffset = 0;
+let serverOffset = 0;
+let now;
+
+async function measureServerClock() {
+    const t1 = Date.now();
+
+    const response = await fetch(
+        "http://43.201.67.185:5000/sangmin/time",
+        { cache: "no-store" }
+    );
+
+    const data = await response.json();
+
+    const t4 = Date.now();
+
+    const t2 = data.receivedAt / 1000000;
+    const t3 = data.sentAt / 1000000;
+
+    const rtt = (t4 - t1) - (t3 - t2);
+    const offset = ((t2 - t1) + (t3 - t4)) / 2;
+
+    return { rtt, offset };
+}
 
 function getServerNow() {
     return Date.now() + serverOffset;
 }
 
-const now = getServerNow();
+async function getRooms() {
+    const response = await fetch(
+        "http://43.201.67.185:5000/sangmin/rooms"
+    );
+
+    const data = await response.json();
+
+    return data.rooms;
+}
+
+function getServerNow() {
+    return Date.now() + serverOffset;
+}
+
+async function init() {
+    const result = await measureServerClock();
+
+    serverOffset = result.offset;
+    rooms = getRooms();
+
+    console.log("RTT:", result.rtt);
+    console.log("offset:", serverOffset);
+
+}
+
+now = getServerNow();
 
 let user = {
     "id": "sangmin123",
     "name": "이상민"
 };
 
-let rooms = [
-    {
-        id: "abc123",
-        type: "런닝",
-        time: "08/24 23:00 ~ 23:30",
-        name: "이상민님의 방",
-        current: 2,
-        max: 4
-    },
-    {
-        id: "abc124",
-        type: "런닝",
-        time: "08/24 23:30 ~ 24:30",
-        name: "아아아악",
-        current: 1,
-        max: 4
-    }
-];
+let rooms = [];
+
+init();
 
 let roomData = {
     roomId: "1a2b",
