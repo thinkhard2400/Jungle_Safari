@@ -156,7 +156,7 @@
             rooms.forEach(room => {
                 const card = document.createElement("a");
 
-                card.href = `./room.html?roomId=${encodeURIComponent(room.id)}`;
+                card.href = `./room?roomId=${encodeURIComponent(room.id)}`;
 
                 card.className = `
                 h-[125px]
@@ -230,7 +230,7 @@
                     const userId = localStorage.getItem("userId");
                     if (!userId) {
                         alert("로그인 후 방에 참가할 수 있습니다.");
-                        location.href = "./login.html";
+                        location.href = "./login";
                         return;
                     }
 
