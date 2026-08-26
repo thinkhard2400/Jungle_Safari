@@ -157,8 +157,8 @@ const drawer = document.getElementById("drawer");
 const drawerOverlay = document.getElementById("drawer-overlay");
 
 storeReady.then(() => {
-    document.getElementById("header-user-name").textContent = user.name;
-    document.getElementById("drawer-user-name").textContent = `${user.name}님`;
+    document.getElementById("header-user-name").textContent = me.name;
+    document.getElementById("drawer-user-name").textContent = `${me.name}님`;
     document.getElementById("header-text").classList.remove("hidden");
 });
 
