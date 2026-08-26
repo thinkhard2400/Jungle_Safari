@@ -31,6 +31,7 @@ def complete():
     return render_template("complete.html")
 
 @page_bp.route("/mypage")
+@jwt_required()
 def mypage():
     user_id = get_jwt_identity()
 
@@ -38,9 +39,13 @@ def mypage():
         {"id": user_id},
         {"_id": 0, "password": 0}
     )
+
+    if me is None:
+        return "사용자를 찾을 수 없습니다.", 404
+
     return render_template(
         "mypage.html",
-        me=me,
+        me=me
     )
 
 @page_bp.route("/sangmin/time")
