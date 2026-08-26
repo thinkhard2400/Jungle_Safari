@@ -227,6 +227,38 @@
                 </div>
             `;
 
+                card.addEventListener("click", async (event) => {
+                    event.preventDefault();
+
+                    const userId = localStorage.getItem("userId");
+                    if (!userId) {
+                        alert("로그인 후 방에 참가할 수 있습니다.");
+                        location.href = "./login.html";
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(
+                            `/api/rooms/${encodeURIComponent(room.id)}/join`,
+                            {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ userId }),
+                            }
+                        );
+                        const result = await response.json();
+
+                        if (!response.ok) {
+                            alert(result.message || "방 참가에 실패했습니다.");
+                            return;
+                        }
+
+                        location.href = card.href;
+                    } catch (error) {
+                        alert("방 참가 요청에 실패했습니다.");
+                    }
+                });
+
                 roomList.appendChild(card);
             });
         });
