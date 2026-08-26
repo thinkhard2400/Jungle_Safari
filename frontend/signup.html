@@ -325,7 +325,7 @@
 
             <button
                 type="button"
-                onclick="location.href='./main.html'"
+                onclick="signup()"
                 class="
                         mt-[24px]
                         mx-[12px]
@@ -373,6 +373,30 @@
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");
         });
+
+        async function signup() {
+            const id = document.querySelector("#user-id").value;
+            const password = document.querySelector("#user-password").value;
+            const name = document.querySelector("#user-name").value;
+
+            try {
+                const response = await fetch("/api/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id, password, name }),
+                });
+                const result = await response.json();
+
+                if (!response.ok) {
+                    alert(result.message);
+                    return;
+                }
+
+                location.href = "./login.html";
+            } catch (error) {
+                alert("회원가입 요청에 실패했습니다.");
+            }
+        }
     </script>
 
 </body>
