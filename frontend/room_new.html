@@ -164,7 +164,7 @@
             </div>
 
             <button
-                onclick="location.href='./sample.html'"
+                onclick="createRoom()"
                 class="
                     absolute
                     bottom-[10px]
@@ -194,6 +194,46 @@
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");
         });
+
+        async function createRoom() {
+            const hostId = localStorage.getItem("userId");
+            const roomName = document.querySelector("#room-name").value.trim();
+            const date = document.querySelector("#room-date").value.trim();
+            const time = document.querySelector("#room-time").value.trim();
+
+            if (!hostId) {
+                alert("로그인 후 방을 만들 수 있습니다.");
+                location.href = "./login.html";
+                return;
+            }
+
+            if (!roomName || !date || !time) {
+                alert("방 이름, 날짜, 시간을 모두 입력해주세요.");
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/rooms", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        roomName,
+                        time: `${date} ${time}`,
+                        hostId,
+                    }),
+                });
+                const result = await response.json();
+
+                if (!response.ok) {
+                    alert(result.message || "방 생성에 실패했습니다.");
+                    return;
+                }
+
+                location.href = "./main.html";
+            } catch (error) {
+                alert("방 생성 요청에 실패했습니다.");
+            }
+        }
     </script>
 
 </body>

@@ -294,6 +294,8 @@
                     if (response["result"] == "success"){
                         console.log(response["message"]);
                         console.log(response["name"])
+                        localStorage.setItem("userId", response["userId"]);
+                        localStorage.setItem("userName", response["name"]);
                         window.location.href = "/main";
                     }
                     console.log(response["message"]);

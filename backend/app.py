@@ -149,8 +149,11 @@ def create_room():
 
     room = {
         "id": uuid4().hex,
+        "type": data.get("type", "런닝"),
+        "name": room_name,
         "roomName": room_name,
         "time": data.get("time", ""),
+        "max": int(data.get("max", data.get("maxMembers", 4))),
         "maxMembers": int(data.get("maxMembers", 4)),
         "hostId": host_id,
         "status": "waiting",
