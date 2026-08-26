@@ -229,6 +229,52 @@ def join_room(room_id):
     return jsonify({"status": "success", "room": get_room(room_id)})
 
 
+# 8. 운동방 나가기 API
+@app.route("/api/rooms/<room_id>/leave", methods=["POST"])
+def leave_room(room_id):
+    data = request.get_json() or {}
+    user_id = data.get("userId", "")
+    room = get_room(room_id)
+
+    if room is None:
+        return error("방을 찾을 수 없습니다.", 404)
+
+    member = next(
+        (member for member in room.get("members", []) if member["id"] == user_id),
+        None,
+    )
+
+    if member is None:
+        return error("방에 참가한 사용자가 아닙니다.", 404)
+
+    if member.get("isHost"):
+        return error("방장은 방 삭제하기를 이용해주세요.", 403)
+
+    rooms.update_one(
+        {"id": room_id},
+        {"$pull": {"members": {"id": user_id}}},
+    )
+
+    return jsonify({"status": "success", "room": get_room(room_id)})
+
+
+# 9. 운동방 삭제 API
+@app.route("/api/rooms/<room_id>", methods=["DELETE"])
+def delete_room(room_id):
+    data = request.get_json() or {}
+    user_id = data.get("userId", "")
+    room = rooms.find_one({"id": room_id})
+
+    if room is None:
+        return error("방을 찾을 수 없습니다.", 404)
+
+    if room.get("hostId") != user_id:
+        return error("방장만 방을 삭제할 수 있습니다.", 403)
+
+    rooms.delete_one({"id": room_id})
+    return jsonify({"status": "success", "message": "방이 삭제되었습니다."})
+
+
 # 8. 운동 시작, 일시정지, 종료 API
 @app.route("/api/rooms/<room_id>/workout", methods=["POST"])
 def workout(room_id):
