@@ -1,6 +1,7 @@
 ## 프론트엔드 라우팅용
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify
+import time
 
 page_bp = Blueprint("page", __name__)
 
@@ -16,6 +17,12 @@ def login():
 def signup():
     return render_template("signup.html")
 
-@page_bp.route("/sangmin/test")
-def sangmin():
-    return "안녕"
+@page_bp.route("/sangmin/time")
+def sangmin_time():
+    received_at = time.time_ns()
+    sent_at = time.time_ns()
+
+    return jsonify({
+        "receivedAt": received_at,
+        "sentAt": sent_at,
+    })
