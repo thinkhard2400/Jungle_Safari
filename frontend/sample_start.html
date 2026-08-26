@@ -26,7 +26,6 @@
         as="image"
         href="./images/bg.jpeg"
     >
-    <script src="./js/store.js"></script>
     <script
         src="./components/header.js"
         defer
@@ -152,7 +151,9 @@
                 gap-[44px]
             ">
 
-                <button class="
+                <button
+                    id="play-action"
+                    class="
                         h-[120px]
                         w-[120px]
                         rounded-[20px]
@@ -173,7 +174,7 @@
                 </button>
 
                 <button
-                    onclick="location.href='./complete'"
+                    id="stop-action"
                     class="
                         h-[120px]
                         w-[120px]
@@ -202,32 +203,41 @@
     </main>
 
     <script>
-        document.getElementById("room-name").textContent = roomData.roomName;
-        document.getElementById("room-time").textContent = roomData.time;
-
+        const roomId = new URLSearchParams(location.search).get("roomId");
+        const userId = localStorage.getItem("userId");
         const participantList = document.getElementById("participant-list");
-
+        let roomData = null;
         let tickTimer = null;
+
+        function getNow() {
+            return Date.now();
+        }
+
+        function parseTimestamp(timestamp) {
+            const value = String(timestamp);
+            const hasTimezone = /Z$|[+-]\d{2}:\d{2}$/.test(value);
+            return new Date(hasTimezone ? value : `${value}Z`).getTime();
+        }
 
         function getWorkoutMilliseconds(logs) {
             let total = 0;
             let startedAt = null;
 
             logs.forEach(log => {
-                const timestamp = new Date(log.timestamp).getTime();
+                const timestamp = parseTimestamp(log.timestamp);
 
                 if (log.type === "start") {
                     startedAt = timestamp;
                 }
 
-                if (log.type === "pause" && startedAt !== null) {
+                if (["pause", "stop"].includes(log.type) && startedAt !== null) {
                     total += timestamp - startedAt;
                     startedAt = null;
                 }
             });
 
             if (startedAt !== null) {
-                total += getServerNow() - startedAt;
+                total += getNow() - startedAt;
             }
 
             return total;
@@ -236,22 +246,18 @@
         function formatTime(milliseconds) {
             const seconds = Math.floor(milliseconds / 1000);
             const minutes = Math.floor(seconds / 60);
-            const remainSeconds = seconds % 60;
-
-            return `${minutes}:${String(remainSeconds).padStart(2, "0")}`;
+            return `${minutes}:${String(seconds % 60).padStart(2, "0")}`;
         }
 
         function renderParticipants() {
+            participantList.replaceChildren();
+
             roomData.members.forEach((member, index) => {
                 const participant = document.createElement("div");
-
-                const lastLog = member.logs[member.logs.length - 1];
-                const isWorking = lastLog.type === "start";
-
-                const statusText = isWorking
-                    ? "운동중"
-                    : "휴식중";
-
+                const logs = member.logs || [];
+                const lastLog = logs[logs.length - 1];
+                const isWorking = lastLog?.type === "start";
+                const statusText = isWorking ? "운동중" : "휴식중";
                 const statusColor = isWorking
                     ? "text-[#05D082]"
                     : "text-[#F72D7D]";
@@ -259,44 +265,21 @@
                 participant.className = `
                     h-[60px]
                     rounded-[12px]
-
                     bg-[#666666]/75
-
                     px-[30px]
-
                     grid
                     grid-cols-3
                     items-center
                 `;
 
                 participant.innerHTML = `
-                    <span class="
-                        text-[24px]
-                        leading-none
-                        font-normal
-                    ">
+                    <span class="text-[24px] leading-none font-normal">
                         ${member.name}
                     </span>
-
-                    <span
-                        id="participant-time-${index}"
-                        class="
-                            text-center
-                            text-[24px]
-                            leading-none
-                            font-bold
-                        "
-                    >
-                        ${formatTime(getWorkoutMilliseconds(member.logs))}
+                    <span id="participant-time-${index}" class="text-center text-[24px] leading-none font-bold">
+                        ${formatTime(getWorkoutMilliseconds(logs))}
                     </span>
-
-                    <span class="
-                        text-right
-                        text-[21px]
-                        leading-none
-                        font-bold
-                        ${statusColor}
-                    ">
+                    <span class="text-right text-[21px] leading-none font-bold ${statusColor}">
                         ${statusText}
                     </span>
                 `;
@@ -307,81 +290,76 @@
 
         function updateParticipantTimes() {
             roomData.members.forEach((member, index) => {
-                const lastLog = member.logs[member.logs.length - 1];
+                const logs = member.logs || [];
+                if (logs[logs.length - 1]?.type !== "start") return;
 
-                if (lastLog.type !== "start") {
-                    return;
-                }
-
-                const time = document.getElementById(
-                    `participant-time-${index}`
-                );
-
-                time.textContent = formatTime(
-                    getWorkoutMilliseconds(member.logs)
-                );
+                document.getElementById(`participant-time-${index}`).textContent =
+                    formatTime(getWorkoutMilliseconds(logs));
             });
-        }
-
-        function getNextUpdateAt(member) {
-            const lastLog = member.logs[member.logs.length - 1];
-
-            if (lastLog.type !== "start") {
-                return null;
-            }
-
-            const elapsed = getWorkoutMilliseconds(member.logs);
-            const remain = 1000 - (elapsed % 1000);
-
-            return getServerNow() + remain;
-        }
-
-        function getNextTickAt() {
-            let nextTickAt = null;
-
-            roomData.members.forEach(member => {
-                const updateAt = getNextUpdateAt(member);
-
-                if (updateAt === null) {
-                    return;
-                }
-
-                if (
-                    nextTickAt === null ||
-                    updateAt < nextTickAt
-                ) {
-                    nextTickAt = updateAt;
-                }
-            });
-
-            return nextTickAt;
         }
 
         function scheduleNextTick() {
-            if (tickTimer !== null) {
-                clearTimeout(tickTimer);
-            }
-
-            const nextTickAt = getNextTickAt();
-
-            if (nextTickAt === null) {
-                tickTimer = null;
-                return;
-            }
-
-            const delay = Math.max(
-                0,
-                nextTickAt - getServerNow()
-            );
+            clearTimeout(tickTimer);
+            if (!roomData.members.some(member =>
+                (member.logs || []).at(-1)?.type === "start"
+            )) return;
 
             tickTimer = setTimeout(() => {
                 updateParticipantTimes();
                 scheduleNextTick();
-            }, delay);
+            }, 1000);
         }
 
-        renderParticipants();
-        scheduleNextTick();
+        async function sendWorkout(type) {
+            const response = await fetch(`/api/rooms/${encodeURIComponent(roomId)}/workout`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId, type }),
+            });
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.message || "운동 상태 변경에 실패했습니다.");
+            }
+
+            roomData = result.room;
+            renderParticipants();
+            scheduleNextTick();
+        }
+
+        async function loadRoom() {
+            if (!roomId) throw new Error("방 ID가 없습니다.");
+
+            const response = await fetch(`/api/rooms/${encodeURIComponent(roomId)}`);
+            const result = await response.json();
+
+            if (!response.ok || !result.room) {
+                throw new Error("방 정보를 불러오지 못했습니다.");
+            }
+
+            roomData = result.room;
+            document.getElementById("room-name").textContent = roomData.name;
+            document.getElementById("room-time").textContent = roomData.time;
+            renderParticipants();
+            scheduleNextTick();
+        }
+
+        document.getElementById("play-action").onclick = () =>
+            sendWorkout("start").catch(error => alert(error.message));
+
+        document.getElementById("stop-action").onclick = async () => {
+            try {
+                await sendWorkout("stop");
+                location.href = "./complete";
+            } catch (error) {
+                alert(error.message);
+            }
+        };
+
+        loadRoom().catch(error => {
+            document.getElementById("room-name").textContent = "방을 불러오지 못했습니다.";
+            document.getElementById("room-time").textContent = error.message;
+        });
 
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");

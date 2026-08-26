@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from uuid import uuid4
 
 import bcrypt
@@ -170,7 +170,7 @@ def create_room():
         "time": data.get("time", ""),
         "max": int(data.get("max", data.get("maxMembers", 4))),
         "status": "waiting",
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "members": [{
             "id": host_id,
             "name": host["name"],
@@ -288,7 +288,7 @@ def workout(room_id):
 
     event = {
         "type": event_type,
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
     rooms.update_one(

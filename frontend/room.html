@@ -277,7 +277,7 @@
                 throw new Error(result.message || "운동 시작에 실패했습니다.");
             }
 
-            location.href = "./sample_start.html";
+            location.href = `./sample_start.html?roomId=${encodeURIComponent(roomId)}`;
         }
 
         async function leaveRoom(roomId) {
@@ -363,7 +363,7 @@
                     primaryAction.textContent = "준비하기";
                     secondaryAction.textContent = "나가기";
                     primaryAction.onclick = () => {
-                        location.href = "./sample_start.html";
+                        location.href = `./sample_start.html?roomId=${encodeURIComponent(roomId)}`;
                     };
                     secondaryAction.onclick = () => leaveRoom(roomId).catch(error => alert(error.message));
                 }
