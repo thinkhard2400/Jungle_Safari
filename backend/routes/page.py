@@ -49,11 +49,50 @@ def get_rooms():
                 "time": "08/24 23:00 ~ 23:30",
                 "name": "이상민님의 방",
                 "max": 4,
+                "status": "start",
+                "timestamp": "2026-08-24T14:00:00.000Z",
                 "members": [
-                    "sangmin123",
-                    "minkyu",
-                    "haesun"
-                    ]
+                    {
+                        "id": "sangmin123",
+                        "name": "이상민",
+                        "isHost": True,
+                        "isReady": True,
+                        "logs": [
+                            {
+                                "type": "start",
+                                "timestamp": "2026-08-24T14:00:00.000Z"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "minkyu",
+                        "name": "박민규",
+                        "isHost": False,
+                        "isReady": True,
+                        "logs": [
+                            {
+                                "type": "start",
+                                "timestamp": "2026-08-24T14:01:10.000Z"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "haesun",
+                        "name": "박해선",
+                        "isHost": False,
+                        "isReady": True,
+                        "logs": [
+                            {
+                                "type": "start",
+                                "timestamp": "2026-08-24T14:02:20.000Z"
+                            },
+                            {
+                                "type": "pause",
+                                "timestamp": "2026-08-24T14:08:40.000Z"
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 "id": "abc124",
@@ -61,9 +100,56 @@ def get_rooms():
                 "time": "08/24 23:30 ~ 24:30",
                 "name": "아아아악",
                 "max": 4,
+                "status": "wait",
+                "timestamp": None,
                 "members": [
-                    "temp1",
-                    ]
+                    {
+                        "id": "temp1",
+                        "name": "김지윤",
+                        "isHost": True,
+                        "isReady": True,
+                        "logs": []
+                    },
+                    {
+                        "id": "temp2",
+                        "name": "최민서",
+                        "isHost": False,
+                        "isReady": False,
+                        "logs": []
+                    }
+                ]
+            },
+            {
+                "id": "abc125",
+                "type": "런닝",
+                "time": "08/25 20:00 ~ 21:30",
+                "name": "저녁 운동",
+                "max": 4,
+                "status": "wait",
+                "timestamp": None,
+                "members": [
+                    {
+                        "id": "temp3",
+                        "name": "이준호",
+                        "isHost": True,
+                        "isReady": True,
+                        "logs": []
+                    },
+                    {
+                        "id": "temp4",
+                        "name": "박유진",
+                        "isHost": False,
+                        "isReady": True,
+                        "logs": []
+                    },
+                    {
+                        "id": "temp5",
+                        "name": "한서연",
+                        "isHost": False,
+                        "isReady": False,
+                        "logs": []
+                    }
+                ]
             }
         ]
     })
