@@ -44,7 +44,7 @@ async function init() {
     const result = await measureServerClock();
 
     serverOffset = result.offset;
-    rooms = getRooms();
+    rooms = await getRooms();
 
     console.log("RTT:", result.rtt);
     console.log("offset:", serverOffset);
@@ -60,7 +60,7 @@ let user = {
 
 let rooms = [];
 
-init();
+const storeReady = init();
 
 let roomData = {
     roomId: "1a2b",

@@ -143,15 +143,19 @@
             document.documentElement.classList.add("fonts-loaded");
         });
 
-        const roomList = document.getElementById("room-list");
+        storeReady.then(() => {
 
-        rooms.forEach(room => {
-            const card = document.createElement("a");
+            console.log(rooms);
 
-            // card.href = `./rooms/${room.id}`;
-            card.href = "./sample.html";
+            const roomList = document.getElementById("room-list");
 
-            card.className = `
+            rooms.forEach(room => {
+                const card = document.createElement("a");
+
+                // card.href = `./rooms/${room.id}`;
+                card.href = "./sample.html";
+
+                card.className = `
                 h-[125px]
                 rounded-[10px]
 
@@ -161,7 +165,7 @@
                 py-[20px]
             `;
 
-            card.innerHTML = `
+                card.innerHTML = `
                 <div class="
                     flex
                     items-center
@@ -212,7 +216,8 @@
                 </div>
             `;
 
-            roomList.appendChild(card);
+                roomList.appendChild(card);
+            });
         });
     </script>
 
