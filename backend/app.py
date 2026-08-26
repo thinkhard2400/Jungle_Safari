@@ -6,7 +6,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
 from config import DATABASE_NAME, DEBUG, HOST, MONGO_URI, PORT
-
+from flask_jwt_extended import *
 
 # 1. Flask와 MongoDB 준비
 app = Flask(__name__)
@@ -14,6 +14,7 @@ CORS(app)  # 다른 포트에서 실행되는 프론트엔드의 요청을 허�
 
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
+jwt = JWTManager(app) ## jwt manager 가 secret key 를 관리 
 
 users = database["users"]
 rooms = database["rooms"]
@@ -50,7 +51,7 @@ def signup():
     if users.find_one({"id": user_id}):
         return error("이미 존재하는 아이디입니다.", 409)
 
-    # 비밀번호 원문 대신 암호화된 값을 저장합니다.
+    # 비밀번호 평문 대신 해시값을 저장.
     encrypted_password = bcrypt.hashpw(
         password.encode("utf-8"),
         bcrypt.gensalt(),
@@ -85,15 +86,31 @@ def login():
         user["password"],
     )
 
-    if not password_is_correct:
-        return error("아이디 또는 비밀번호가 잘못되었습니다.", 401)
+    if password_is_correct:
+         # assign access & refresh token 
+        access_token = create_access_token(
+            identity=user_id,
+            expires_delta= datetime.timedelta(minutes=60),
 
-    return jsonify({
-        "status": "success",
-        "message": "로그인 성공",
-        "userId": user["id"],
-        "name": user["name"],
-    })
+        )
+        refresh_token = create_refresh_token(
+            identity=user_id,
+            expires_delta=datetime.timedelta(days=14),
+        )
+        response = jsonify({"status": "success", "message": "로그인 성공", "userId": user["id"],"name": user['name']})
+        response.set_cookie("access_token", access_token, max_age=3600, path="/", secure=False, httponly=True, samesite="Lax")
+        response.set_cookie("refresh_token", refresh_token, max_age=604800, path="/", secure=False, httponly=True, samesite="Lax")
+        
+        return response
+    else : 
+        return jsonify({"status": "fail", "message": "비밀번호가 일치하지 않습니다."}), 400
+
+    
+       
+    
+        
+
+    
 
 
 # 5. 운동방 목록 API
