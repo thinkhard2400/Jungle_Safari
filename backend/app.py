@@ -259,7 +259,7 @@ def workout(room_id):
     })
 
 # 9. 마이페이지(히스토리)
-@app.route('/api/me', methods = ["POST"])
+@app.route('/api/me', methods = ["GET"])
 @jwt_required()
 def userme(): 
     user_id = get_jwt_identity()

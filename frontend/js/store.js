@@ -36,6 +36,16 @@ async function getRooms() {
     return data.rooms;
 }
 
+async function myData() {
+    const response = await fetch(
+        "http://43.201.67.185:5000/api/me"
+    );
+
+    const data = await response.json();
+
+    return data;
+}
+
 async function getUser(id) {
     const response = await fetch(
         "http://43.201.67.185:5000/sangmin/users/id"
@@ -56,9 +66,11 @@ async function init() {
     serverOffset = result.offset;
     rooms = await getRooms();
     user = await getUser("id");
+    me = await myData();
 
     console.log("RTT:", result.rtt);
     console.log("offset:", serverOffset);
+    console.log(me);
 
 }
 
@@ -66,6 +78,7 @@ now = getServerNow();
 
 let user = {};
 let rooms = [];
+let me = {};
 
 const storeReady = init();
 
