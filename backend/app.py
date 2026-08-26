@@ -22,6 +22,8 @@ app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
 # API 테스트 단계에서는 쿠키의 CSRF 헤더 검사를 끕니다.
 app.config["JWT_COOKIE_CSRF_PROTECT"] = False
+app.config["JWT_ACCESS_COOKIE_NAME"] = "access_token"
+app.config["JWT_REFRESH_COOKIE_NAME"] = "refresh_token"
 
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
