@@ -263,8 +263,9 @@ def workout(room_id):
 @jwt_required()
 def userme(): 
     user_id = get_jwt_identity()
+    user = users.find_one({"id": user_id})
     
-    return jsonify({"status" : "success", "id" : user_id})
+    return jsonify({"status" : "success", "id" : user_id, "name": user["name"]})
 
     
     
