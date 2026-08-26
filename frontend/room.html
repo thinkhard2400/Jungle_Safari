@@ -193,21 +193,28 @@
     <script>
         const participantList = document.getElementById("participant-list");
 
-        storeReady.then(() => {
+        async function loadRoom() {
+            const roomId = new URLSearchParams(location.search).get("roomId");
 
-            const roomData = rooms.find(room => {
-                return room.members.some(member => {
-                    return member.id === user.id;
-                });
-            });
-            if (!roomData) {
+            if (!roomId) {
+                document.getElementById("room-name").textContent = "방을 찾을 수 없습니다.";
+                document.getElementById("room-time").textContent = "방 ID가 없습니다.";
                 return;
             }
 
-            document.getElementById("room-name").textContent = roomData.name;
-            document.getElementById("room-time").textContent = roomData.time;
+            try {
+                const response = await fetch(`/api/rooms/${encodeURIComponent(roomId)}`);
+                const result = await response.json();
 
-            roomData.members.forEach(member => {
+                if (!response.ok || !result.room) {
+                    throw new Error("방 정보를 불러오지 못했습니다.");
+                }
+
+                const roomData = result.room;
+                document.getElementById("room-name").textContent = roomData.name;
+                document.getElementById("room-time").textContent = roomData.time;
+
+                roomData.members.forEach(member => {
                 const participant = document.createElement("div");
 
                 const statusText = member.isHost
@@ -254,9 +261,15 @@
                 </span>
             `;
 
-                participantList.appendChild(participant);
-            });
-        })
+                    participantList.appendChild(participant);
+                });
+            } catch (error) {
+                document.getElementById("room-name").textContent = "방을 불러오지 못했습니다.";
+                document.getElementById("room-time").textContent = "잠시 후 다시 시도해주세요.";
+            }
+        }
+
+        loadRoom();
 
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");
