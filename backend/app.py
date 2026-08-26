@@ -129,10 +129,21 @@ def login():
 @app.route("/api/rooms", methods=["GET"])
 def get_rooms():
     room_list = rooms.find({}, {"_id": 0}).sort("timestamp", -1)
-    return jsonify({
-        "status": "success",
-        "rooms": list(room_list),
-    })
+    room_data = []
+
+    for room in room_list:
+        room_data.append({
+            "id": room["id"],
+            "type": room.get("type", "런닝"),
+            "time": room.get("time", ""),
+            "name": room.get("name", room.get("roomName", "")),
+            "max": room.get("max", room.get("maxMembers", 4)),
+            "status": room.get("status", "waiting"),
+            "timestamp": room.get("timestamp"),
+            "members": room.get("members", []),
+        })
+
+    return jsonify({"rooms": room_data})
 
 
 # 5. 운동방 생성 API
