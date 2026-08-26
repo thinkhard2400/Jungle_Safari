@@ -287,9 +287,10 @@
                 data: {id :id, password: pw },
                 success: function(response) {
                     if (response["result"] == "success"){
-                        console.log(response["token"]);
+                        console.log(response["message"]);
+                        console.log(response["name"])
                     }
-                    console.log(response);
+                    console.log(response["message"]);
                 }
             });
         }
