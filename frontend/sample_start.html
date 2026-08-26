@@ -213,12 +213,18 @@
             return Date.now();
         }
 
+        function parseTimestamp(timestamp) {
+            const value = String(timestamp);
+            const hasTimezone = /Z$|[+-]\d{2}:\d{2}$/.test(value);
+            return new Date(hasTimezone ? value : `${value}Z`).getTime();
+        }
+
         function getWorkoutMilliseconds(logs) {
             let total = 0;
             let startedAt = null;
 
             logs.forEach(log => {
-                const timestamp = new Date(log.timestamp).getTime();
+                const timestamp = parseTimestamp(log.timestamp);
 
                 if (log.type === "start") {
                     startedAt = timestamp;
