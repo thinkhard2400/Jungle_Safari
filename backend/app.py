@@ -205,7 +205,9 @@ def join_room(room_id):
         if member["id"] == user_id:
             return jsonify({"status": "success", "room": room})
 
-    if len(room["members"]) >= room["maxMembers"]:
+    max_members = room.get("max", room.get("maxMembers", 4))
+
+    if len(room["members"]) >= max_members:
         return error("방 정원이 가득 찼습니다.", 409)
 
     rooms.update_one(
