@@ -277,11 +277,11 @@
             document.documentElement.classList.add("fonts-loaded");
         });
 
-        $("$loginForm").on("submit", function(e) {
+        $("#loginForm").on("submit", function(e) {
             e.preventDefault();
 
-            let id = $("$user-id").val();
-            let pw = $("$user-password").val();
+            let id = $("#user-id").val();
+            let pw = $("#user-password").val();
 
             $.ajax({
                 type: "POST",
@@ -297,7 +297,10 @@
                         window.location.href = "/main";
                     }
                     console.log(response["message"]);
-                } 
+                },
+                error: function(xhr) {
+                  console.log(xhr.responseJSON.message);  
+                }
             });
         });
         
