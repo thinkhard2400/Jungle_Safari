@@ -218,6 +218,7 @@
                     </span>
 
                     <span class="
+                        room-count
                         text-[20px]
                         font-light
                     ">
@@ -253,6 +254,9 @@
                             return;
                         }
 
+                        const count = card.querySelector(".room-count");
+                        count.textContent = `${result.room.members.length}/${result.room.max}`;
+
                         location.href = card.href;
                     } catch (error) {
                         alert("방 참가 요청에 실패했습니다.");
@@ -261,6 +265,12 @@
 
                 roomList.appendChild(card);
             });
+        });
+
+        window.addEventListener("pageshow", (event) => {
+            if (event.persisted) {
+                location.reload();
+            }
         });
     </script>
 
