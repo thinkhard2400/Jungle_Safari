@@ -149,6 +149,13 @@
             console.log(rooms);
 
             const roomList = document.getElementById("room-list");
+            const sportIcons = {
+                "농구": "sports_basketball.svg",
+                "헬스": "sports_gym.svg",
+                "런닝": "sports_run.svg",
+                "축구": "sports_soccer.svg",
+                "스트레칭": "sports_stretching.svg",
+            };
 
             rooms.forEach(room => {
                 const card = document.createElement("a");
@@ -178,7 +185,11 @@
                         text-[24px]
                         font-bold
                     ">
-                        ${room.type}
+                        <img
+                            src="./images/${sportIcons[room.type] || sportIcons["런닝"]}"
+                            alt="${room.type}"
+                            class="h-[34px] w-[34px]"
+                        >
                     </span>
 
                     <span class="
