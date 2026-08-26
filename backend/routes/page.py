@@ -15,3 +15,7 @@ def login():
 @page_bp.route("/signup")
 def signup():
     return render_template("signup.html")
+
+@page_bp.route("/sangmin/test")
+def sangmin():
+    return "안녕"

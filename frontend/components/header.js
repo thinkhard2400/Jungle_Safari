@@ -1,8 +1,12 @@
 const headerArea = document.getElementById("header-area");
 
 headerArea.innerHTML = `
+    <div class="
+        bg-black/50
+        ">    
+
     <header class="
-        h-[84px]
+        h-[54px]
         px-[30px]
 
         flex
