@@ -28,6 +28,11 @@
         as="image"
         href="./images/bg.jpeg"
     >
+    <script src="./js/store.js"></script>
+    <script
+        src="./components/header.js"
+        defer
+    ></script>
 
     <title>Project 482</title>
 
@@ -51,7 +56,6 @@
             background: #000;
             font-family: "Pretendard Variable", sans-serif;
             overflow: hidden;
-            overscroll-behavior: none;
         }
     </style>
 </head>
@@ -91,62 +95,7 @@
             flex-col
         ">
 
-            <header class="
-                h-[84px]
-
-                px-[30px]
-
-                flex
-                items-center
-                justify-between
-            ">
-
-                <div class="
-                    flex
-                    items-center
-                    gap-[12px]
-                ">
-                    <img
-                        src="./images/account_circle.svg"
-                        class="
-                            h-[35px]
-                            w-[35px]
-                        "
-                    >
-
-                    <span class="
-                        text-[20px]
-                        leading-none
-                        font-light
-                    ">
-                        <span class="font-bold">이상민</span>님 안녕하세요!
-                    </span>
-                </div>
-
-                <button
-                    type="button"
-                    class="
-                        ml-auto
-                        border-0
-                        bg-transparent
-                    "
-                >
-                    <img
-                        src="./images/menu.svg"
-                        class="
-                            h-[28px]
-                            w-[28px]
-                        "
-                    >
-                </button>
-
-            </header>
-
-            <div class="
-                mx-[20px]
-                h-px
-                bg-white/20
-            "></div>
+            <div id="header-area"></div>
 
             <section class="
                 px-[30px]
@@ -204,9 +153,7 @@
                 gap-[44px]
             ">
 
-                <button
-                    type="button"
-                    class="
+                <button class="
                         h-[120px]
                         w-[120px]
                         rounded-[22px]
@@ -216,8 +163,7 @@
                         flex
                         items-center
                         justify-center
-                    "
-                >
+                    ">
                     <img
                         src="./images/play.svg"
                         class="
@@ -227,9 +173,7 @@
                     >
                 </button>
 
-                <button
-                    type="button"
-                    class="
+                <button class="
                         h-[120px]
                         w-[120px]
                         rounded-[22px]
@@ -239,8 +183,7 @@
                         flex
                         items-center
                         justify-center
-                    "
-                >
+                    ">
                     <img
                         src="./images/stop.svg"
                         class="
@@ -263,60 +206,6 @@
             const serverOffset =
                 serverTimestamp + (rtt / 2) - t1;
         */
-
-        const serverOffset = 0;
-
-        function getServerNow() {
-            return Date.now() + serverOffset;
-        }
-
-        const now = getServerNow();
-
-        const roomData = {
-            roomName: "이상민님의 방",
-            time: "08/24 23:00 ~ 23:30",
-            status: "start",
-            timestamp: new Date(now - 480000).toISOString(),
-            members: [
-                {
-                    name: "이상민",
-                    isHost: true,
-                    isReady: true,
-                    logs: [
-                        {
-                            type: "start",
-                            timestamp: new Date(now - 222400).toISOString()
-                        }
-                    ]
-                },
-                {
-                    name: "이상민",
-                    isHost: false,
-                    isReady: true,
-                    logs: [
-                        {
-                            type: "start",
-                            timestamp: new Date(now - 222750).toISOString()
-                        }
-                    ]
-                },
-                {
-                    name: "이상민",
-                    isHost: false,
-                    isReady: true,
-                    logs: [
-                        {
-                            type: "start",
-                            timestamp: new Date(now - 180000).toISOString()
-                        },
-                        {
-                            type: "pause",
-                            timestamp: new Date(now - 96000).toISOString()
-                        }
-                    ]
-                }
-            ]
-        };
 
         document.getElementById("room-name").textContent = roomData.roomName;
         document.getElementById("room-time").textContent = roomData.time;

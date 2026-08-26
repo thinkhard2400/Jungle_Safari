@@ -1,7 +1,3 @@
-const user = {
-    "name": "이상민"
-};
-
 const headerArea = document.getElementById("header-area");
 
 headerArea.innerHTML = `
@@ -128,12 +124,14 @@ headerArea.innerHTML = `
                 gap-[42px]
             ">
 
-                <button class="
-                    text-[20px]
-                    font-bold
-                    text-white
-                ">
-                    기록 확인하기
+                <button 
+                    onclick="location.href='./mypage.html'"
+                    class="
+                        text-[20px]
+                        font-bold
+                        text-white
+                    ">
+                        기록 확인하기
                 </button>
 
                 <button class="

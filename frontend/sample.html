@@ -29,6 +29,12 @@
         href="./images/bg.jpeg"
     >
 
+    <script src="./js/store.js"></script>
+    <script
+        src="./components/header.js"
+        defer
+    ></script>
+
     <title>Project 482</title>
 
     <style>
@@ -51,7 +57,6 @@
             background: #000;
             font-family: "Pretendard Variable", sans-serif;
             overflow: hidden;
-            overscroll-behavior: none;
         }
     </style>
 </head>
@@ -91,63 +96,7 @@
             flex-col
         ">
 
-            <header class="
-                h-[84px]
-
-                px-[30px]
-
-                flex
-                items-center
-                justify-between
-            ">
-
-                <div class="
-                    flex
-                    items-center
-                    gap-[12px]
-                ">
-                    <img
-                        src="./images/account_circle.svg"
-                        class="
-                            h-[35px]
-                            w-[35px]
-                        "
-                    >
-
-                    <span class="
-                        text-[20px]
-                        leading-none
-                        font-light
-                    ">
-                        <span class="font-bold">이상민</span>님 안녕하세요!
-                    </span>
-                </div>
-
-                <button
-                    type="button"
-                    class="
-                        ml-auto
-                        border-0
-                        bg-transparent
-                        cursor-pointer
-                    "
-                >
-                    <img
-                        src="./images/menu.svg"
-                        class="
-                            h-[28px]
-                            w-[28px]
-                        "
-                    >
-                </button>
-
-            </header>
-
-            <div class="
-                mx-[20px]
-                h-px
-                bg-white/20
-            "></div>
+            <div id="header-area"></div>
 
             <section class="
                 px-[30px]
@@ -157,10 +106,10 @@
                 <div
                     id="room-name"
                     class="
-                    text-[30px]
-                    leading-none
-                    font-bold
-                "
+                        text-[30px]
+                        leading-none
+                        font-bold
+                    "
                 >
                     방 정보를 불러오지 못했습니다.
                 </div>
@@ -168,13 +117,13 @@
                 <div
                     id="room-time"
                     class="
-                    mt-[34px]
+                        mt-[34px]
 
-                    text-[27px]
-                    leading-none
-                    font-normal
-                    whitespace-nowrap
-                "
+                        text-[27px]
+                        leading-none
+                        font-normal
+                        whitespace-nowrap
+                    "
                 >
                     시간을 불러오지 못했습니다.
                 </div>
@@ -184,13 +133,13 @@
             <div
                 id="participant-list"
                 class="
-                mt-[48px]
-                px-[20px]
+                    mt-[48px]
+                    px-[20px]
 
-                flex
-                flex-col
-                gap-[10px]
-            "
+                    flex
+                    flex-col
+                    gap-[10px]
+                "
             ></div>
 
             <div class="
@@ -205,7 +154,6 @@
             ">
 
                 <button
-                    type="button"
                     onclick="location.href='./sample_start.html'"
                     class="
                         h-[58px]
@@ -223,9 +171,7 @@
                     준비하기
                 </button>
 
-                <button
-                    type="button"
-                    class="
+                <button class="
                         h-[58px]
                         w-full
                         rounded-full
@@ -236,8 +182,7 @@
                         text-[20px]
                         leading-none
                         font-extrabold
-                    "
-                >
+                    ">
                     나가기
                 </button>
 
@@ -248,35 +193,6 @@
     </main>
 
     <script>
-        const roomData = {
-            roomName: "이상민님의 방",
-            time: "08/24 23:00 ~ 23:30",
-            status: "start",
-            timestamp: "2026-08-24T14:00:00.000Z",
-            members: [
-                {
-                    name: "이상민",
-                    isHost: true,
-                    isReady: true,
-                    logs: [
-                        { type: "start", timestamp: "2026-08-24T14:00:00.000Z" },
-                        { type: "pause", timestamp: "2026-08-24T14:00:03.000Z" },
-                        { type: "start", timestamp: "2026-08-24T14:08:00.000Z" },
-                    ]
-                },
-                {
-                    name: "이상민",
-                    isHost: false,
-                    isReady: true
-                },
-                {
-                    name: "이상민",
-                    isHost: false,
-                    isReady: false
-                }
-            ]
-        };
-
         document.getElementById("room-name").textContent = roomData.roomName;
         document.getElementById("room-time").textContent = roomData.time;
 

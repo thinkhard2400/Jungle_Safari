@@ -29,6 +29,12 @@
         href="./images/bg.jpeg"
     >
 
+    <script src="./js/store.js"></script>
+    <script
+        src="./components/header.js"
+        defer
+    ></script>
+
     <title>Project 482</title>
 
     <style>
@@ -92,9 +98,6 @@
 
             <div id="header-area"></div>
 
-            <script src="./components/header.js"></script>
-
-
             <div
                 id="room-list"
                 class="
@@ -140,29 +143,7 @@
             document.documentElement.classList.add("fonts-loaded");
         });
 
-
-        const rooms = [
-            {
-                id: "abc123",
-                type: "런닝",
-                time: "08/24 23:00 ~ 23:30",
-                name: "이상민님의 방",
-                current: 2,
-                max: 4
-            },
-            {
-                id: "abc124",
-                type: "런닝",
-                time: "08/24 23:30 ~ 24:30",
-                name: "아아아악",
-                current: 1,
-                max: 4
-            }
-        ];
-
-
         const roomList = document.getElementById("room-list");
-
 
         rooms.forEach(room => {
             const card = document.createElement("a");

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://cdn.jsdelivr.net"
+        crossorigin
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link
+        rel="stylesheet"
+        crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    >
+
+    <link
+        rel="preload"
+        as="image"
+        href="./images/bg.jpeg"
+    >
+
+    <script src="./js/store.js"></script>
+
+    <script
+        src="./components/header.js"
+        defer
+    ></script>
+
+    <title>Project 482</title>
+
+    <style>
+        html {
+            visibility: hidden;
+        }
+
+        html.fonts-loaded {
+            visibility: visible;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #000;
+            font-family: "Pretendard Variable", sans-serif;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="
+        relative
+        h-dvh
+        w-full
+        overflow-hidden
+
+        bg-[url('./images/bg.jpeg')]
+        bg-cover
+        bg-center
+
+        text-white
+    ">
+
+        <div class="
+            absolute
+            inset-0
+
+            bg-black/65
+        "></div>
+
+        <div class="
+            absolute
+            left-[env(safe-area-inset-left)]
+            right-[env(safe-area-inset-right)]
+            top-[env(safe-area-inset-top)]
+            bottom-[env(safe-area-inset-bottom)]
+
+            flex
+            flex-col
+        ">
+
+            <div id="header-area"></div>
+
+            <section class="
+                mt-[205px]
+                px-[32px]
+            ">
+
+                <div class="
+                    text-[30px]
+                    leading-none
+                    font-black
+                ">
+                    운동 기록
+                </div>
+
+                <div class="
+                    mt-[28px]
+
+                    flex
+                ">
+
+                    <div class="
+                        w-[34px]
+                        pt-[26px]
+
+                        text-[14px]
+                        font-normal
+                    ">
+
+                        <div>
+                            Mon
+                        </div>
+
+                        <div class="
+                            mt-[32px]
+                        ">
+                            Fri
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <div class="
+                            mb-[8px]
+
+                            flex
+                            justify-between
+
+                            text-[14px]
+                            font-normal
+                        ">
+                            <span>Sep</span>
+                            <span>Oct</span>
+                            <span>Nov</span>
+                            <span>Dec</span>
+                            <span>Jan</span>
+                        </div>
+
+                        <div
+                            id="record-grid"
+                            class="
+                                grid
+                                grid-flow-col
+                                grid-rows-7
+                                gap-[3px]
+                            "
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+        const recordGrid = document.getElementById("record-grid");
+
+        function getDateKey(date) {
+            return (
+                date.getFullYear() + "-" +
+                String(date.getMonth() + 1).padStart(2, "0") + "-" +
+                String(date.getDate()).padStart(2, "0")
+            );
+        }
+
+        const dailyRecords = {};
+
+        workoutRecords.forEach(record => {
+            const date = new Date(record.date);
+            const dateKey = getDateKey(date);
+
+            if (dailyRecords[dateKey]) {
+                dailyRecords[dateKey] += record.time;
+            } else {
+                dailyRecords[dateKey] = record.time;
+            }
+        });
+
+        function getRecordColor(time) {
+            if (time === 0) {
+                return "bg-[#666666]";
+            }
+
+            if (time < 1800000) {
+                return "bg-[#075F42]";
+            }
+
+            if (time < 3600000) {
+                return "bg-[#078F5D]";
+            }
+
+            if (time < 4920000) {
+                return "bg-[#05B873]";
+            }
+
+            return "bg-[#05D082]";
+        }
+
+        const startDate = new Date("2026-08-24");
+        const endDate = new Date("2027-01-28");
+
+        let emptyCount = (startDate.getDay() + 6) % 7;
+
+        for (let i = 0; i < emptyCount; i++) {
+            const cell = document.createElement("div");
+
+            cell.className = `
+                h-[10px]
+                w-[10px]
+            `;
+
+            recordGrid.appendChild(cell);
+        }
+
+        let date = new Date(startDate);
+
+        while (date <= endDate) {
+            const dateKey = getDateKey(date);
+
+            const time = dailyRecords[dateKey] || 0;
+
+            const cell = document.createElement("div");
+
+            cell.className = `
+                h-[10px]
+                w-[10px]
+                rounded-[1px]
+
+                ${getRecordColor(time)}
+            `;
+
+            recordGrid.appendChild(cell);
+
+            date.setDate(date.getDate() + 1);
+        }
+
+        document.fonts.ready.then(() => {
+            document.documentElement.classList.add("fonts-loaded");
+        });
+    </script>
+
+</body>
+
+</html>
