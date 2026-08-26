@@ -82,56 +82,6 @@ let me = {};
 
 const storeReady = init();
 
-let roomData = {
-    roomId: "1a2b",
-    roomName: "이상민님의 방",
-    time: "08/24 23:00 ~ 23:30",
-    status: "start",
-    timestamp: new Date(now - 480000).toISOString(),
-    members: [
-        {
-            id: "sangmin123",
-            name: "이상민",
-            isHost: true,
-            isReady: true,
-            logs: [
-                {
-                    type: "start",
-                    timestamp: new Date(now - 222400).toISOString()
-                }
-            ]
-        },
-        {
-            id: "minkyu",
-            name: "박민규",
-            isHost: false,
-            isReady: true,
-            logs: [
-                {
-                    type: "start",
-                    timestamp: new Date(now - 222750).toISOString()
-                }
-            ]
-        },
-        {
-            id: "haesun",
-            name: "박해선",
-            isHost: false,
-            isReady: false,
-            logs: [
-                {
-                    type: "start",
-                    timestamp: new Date(now - 180000).toISOString()
-                },
-                {
-                    type: "pause",
-                    timestamp: new Date(now - 96000).toISOString()
-                }
-            ]
-        }
-    ]
-};
-
 const workoutRecords = [
     {
         date: "2026-08-26T10:00:00.000Z",
