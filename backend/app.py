@@ -240,6 +240,21 @@ def workout(room_id):
         "room": get_room(room_id),
     })
 
+# 9. 마이페이지(히스토리)
+@app.route('/api/me', methods = ["POST"])
+@jwt_required
+def userme(): 
+    user_id = get_jwt_identity()
+    
+    return jsonify({"status" : "success", "id" : user_id})
+
+    
+    
+# 10. 
+# @jwt.expired_token_loader
+# def expired_token_callback():
+    
+    
 
 if __name__ == "__main__":
     app.run(debug=DEBUG, host=HOST, port=PORT)
