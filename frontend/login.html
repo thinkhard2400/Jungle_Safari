@@ -225,7 +225,7 @@
 
                 <button
                     type="button"
-                    onclick="location.href='./main.html'"
+                    onclick="login()"
                     class="
                         mt-[13px]
                         ml-auto
@@ -278,19 +278,23 @@
         });
         
         function login() {
-            let id = $("$user-id").val();
-            let pw = $("$user-password").val();
+            const id = $("#user-id").val();
+            const password = $("#user-password").val();
 
             $.ajax({
-                type : "POST",
+                type: "POST",
                 url: "/api/login",
-                data: {id :id, password: pw },
+                contentType: "application/json",
+                data: JSON.stringify({ id: id, password: password }),
                 success: function(response) {
-                    if (response["result"] == "success"){
-                        console.log(response["message"]);
-                        console.log(response["name"])
+                    if (response.status === "success") {
+                        location.href = "./main.html";
+                    } else {
+                        alert(response.message);
                     }
-                    console.log(response["message"]);
+                },
+                error: function(xhr) {
+                    alert(xhr.responseJSON?.message || "로그인에 실패했습니다.");
                 }
             });
         }

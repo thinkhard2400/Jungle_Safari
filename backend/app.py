@@ -1,11 +1,11 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from uuid import uuid4
 
 import bcrypt
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 from pymongo import MongoClient
-from config import DATABASE_NAME, DEBUG, HOST, MONGO_URI, PORT
+from config import DATABASE_NAME, DEBUG, HOST, JWT_SECRET_KEY, MONGO_URI, PORT
 from flask_jwt_extended import *
 from routes.page import page_bp
 
@@ -18,6 +18,7 @@ app = Flask(
 )
 CORS(app)  # 다른 포트에서 실행되는 프론트엔드의 요청을 허용합니다.
 app.register_blueprint(page_bp)
+app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
 
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
@@ -101,12 +102,12 @@ def login():
          # assign access & refresh token 
         access_token = create_access_token(
             identity=user_id,
-            expires_delta= datetime.timedelta(minutes=60),
+            expires_delta=timedelta(minutes=60),
 
         )
         refresh_token = create_refresh_token(
             identity=user_id,
-            expires_delta=datetime.timedelta(days=14),
+            expires_delta=timedelta(days=14),
         )
         response = jsonify({"status": "success", "message": "로그인 성공", "userId": user["id"],"name": user['name']})
         response.set_cookie("access_token", access_token, max_age=3600, path="/", secure=False, httponly=True, samesite="Lax")
