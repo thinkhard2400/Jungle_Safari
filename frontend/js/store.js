@@ -36,6 +36,16 @@ async function getRooms() {
     return data.rooms;
 }
 
+async function getUser(id) {
+    const response = await fetch(
+        "http://43.201.67.185:5000/sangmin/users/id"
+    );
+
+    const data = await response.json();
+
+    return data;
+}
+
 function getServerNow() {
     return Date.now() + serverOffset;
 }
@@ -45,6 +55,7 @@ async function init() {
 
     serverOffset = result.offset;
     rooms = await getRooms();
+    user = await getUser("id");
 
     console.log("RTT:", result.rtt);
     console.log("offset:", serverOffset);
@@ -53,11 +64,7 @@ async function init() {
 
 now = getServerNow();
 
-let user = {
-    "id": "sangmin123",
-    "name": "이상민"
-};
-
+let user = {};
 let rooms = [];
 
 const storeReady = init();

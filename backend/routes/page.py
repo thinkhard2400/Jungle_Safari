@@ -27,8 +27,16 @@ def sangmin_time():
         "sentAt": sent_at,
     })
 
+@page_bp.route("/sangmin/users/id")
+def get_user_info():
+    return jsonify({
+        "id": "sangmin123",
+        "name": "이상민",
+        "roomId": "abc123"
+    })
+
 @page_bp.route("/sangmin/rooms")
-def sangmin_rooms():
+def get_rooms():
     return jsonify({
         "rooms": [
             {
@@ -37,7 +45,12 @@ def sangmin_rooms():
                 "time": "08/24 23:00 ~ 23:30",
                 "name": "이상민님의 방",
                 "current": 2,
-                "max": 4
+                "max": 4,
+                "members": [
+                    "sangmin123",
+                    "minkyu",
+                    "haesun"
+                    ]
             },
             {
                 "id": "abc124",
@@ -45,7 +58,10 @@ def sangmin_rooms():
                 "time": "08/24 23:30 ~ 24:30",
                 "name": "아아아악",
                 "current": 1,
-                "max": 4
+                "max": 4,
+                "members": [
+                    "temp1",
+                    ]
             }
         ]
     })
