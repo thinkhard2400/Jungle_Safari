@@ -148,6 +148,23 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="border-t border-white/15 py-[14px]">
+                    <label
+                        for="room-max-members"
+                        class="flex items-center justify-between text-[18px]"
+                    >
+                        <span>최대 인원</span>
+                        <select
+                            id="room-max-members"
+                            class="rounded-full bg-white px-[14px] py-[8px] text-[16px] text-black"
+                        >
+                            <option value="2">2명</option>
+                            <option value="3">3명</option>
+                            <option value="4" selected>4명</option>
+                        </select>
+                    </label>
+                </div>
             </div>
 
             <button
@@ -212,6 +229,7 @@
             const date = document.querySelector("#room-date").value.trim();
             const startTime = document.querySelector("#room-time-start").value;
             const endTime = document.querySelector("#room-time-end").value;
+            const maxMembers = Number(document.querySelector("#room-max-members").value);
 
             if (!hostId) {
                 alert("로그인 후 방을 만들 수 있습니다.");
@@ -236,6 +254,7 @@
                     body: JSON.stringify({
                         roomName,
                         time: `${date} ${startTime} ~ ${endTime}`,
+                        maxMembers,
                         hostId,
                     }),
                 });
