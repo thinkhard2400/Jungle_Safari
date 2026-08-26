@@ -17,6 +17,10 @@ def login():
 def signup():
     return render_template("signup.html")
 
+@page_bp.route("/main")
+def main():
+    return render_template("main.html")
+
 @page_bp.route("/sangmin/time")
 def sangmin_time():
     received_at = time.time_ns()
@@ -44,7 +48,6 @@ def get_rooms():
                 "type": "런닝",
                 "time": "08/24 23:00 ~ 23:30",
                 "name": "이상민님의 방",
-                "current": 2,
                 "max": 4,
                 "members": [
                     "sangmin123",
@@ -57,7 +60,6 @@ def get_rooms():
                 "type": "런닝",
                 "time": "08/24 23:30 ~ 24:30",
                 "name": "아아아악",
-                "current": 1,
                 "max": 4,
                 "members": [
                     "temp1",
