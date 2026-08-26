@@ -19,6 +19,9 @@ app = Flask(
 CORS(app)  # 다른 포트에서 실행되는 프론트엔드의 요청을 허용합니다.
 app.register_blueprint(page_bp)
 app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
+app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+# API 테스트 단계에서는 쿠키의 CSRF 헤더 검사를 끕니다.
+app.config["JWT_COOKIE_CSRF_PROTECT"] = False
 
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
@@ -255,7 +258,7 @@ def workout(room_id):
 
 # 9. 마이페이지(히스토리)
 @app.route('/api/me', methods = ["POST"])
-@jwt_required
+@jwt_required()
 def userme(): 
     user_id = get_jwt_identity()
     
