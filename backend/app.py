@@ -5,9 +5,11 @@ import bcrypt
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 from pymongo import MongoClient
-from config import DATABASE_NAME, DEBUG, HOST, JWT_SECRET_KEY, MONGO_URI, PORT
+from config import DATABASE_NAME, DEBUG, HOST, JWT_SECRET_KEY, MONGO_URI, PORT, TW_AUTH, TW_SID, TW_SENDER
 from flask_jwt_extended import *
 from routes.page import page_bp
+
+from twilio.rest import Client as TwilioClient
 
 # 1. Flask와 MongoDB 준비
 app = Flask(
@@ -25,6 +27,8 @@ app.config["JWT_COOKIE_CSRF_PROTECT"] = False
 app.config["JWT_ACCESS_COOKIE_NAME"] = "access_token_cookie"
 app.config["JWT_REFRESH_COOKIE_NAME"] = "refresh_token_cookie"
 
+
+twclient = TwilioClient(TW_SID,TW_AUTH)
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
 jwt = JWTManager(app) ## jwt manager 가 secret key 를 관리 
@@ -42,6 +46,12 @@ def get_room(room_id):
     """방 ID로 MongoDB에서 방 하나를 찾습니다."""
     return rooms.find_one({"id": room_id}, {"_id": 0})
 
+def send_sms(receiver, name):
+    return twclient.messages.create(
+        to=receiver,
+        from_=TW_SENDER,
+        body= f"{name}님 곧 운동이 시작됩니다!",
+    )
 
 
 
@@ -61,9 +71,10 @@ def signup():
     user_id = data.get("id", "")
     password = data.get("password", "")
     name = data.get("name", "")
+    phone = data.get("phone", "")
 
-    if not user_id or not password or not name:
-        return error("id, password, name은 모두 필요합니다.")
+    if not user_id or not password or not name or not phone:
+        return error("id, password, name, phone은 모두 필요합니다.")
 
     if users.find_one({"id": user_id}):
         return error("이미 존재하는 아이디입니다.", 409)
@@ -73,11 +84,12 @@ def signup():
         password.encode("utf-8"),
         bcrypt.gensalt(),
     )
-
+    parsed_phone =  "+82" + phone.replace("-", "")[1 :]
     users.insert_one({
         "id": user_id,
         "password": encrypted_password,
         "name": name,
+        "phone" : parsed_phone
     })
 
     return jsonify({
@@ -216,8 +228,9 @@ def join_room(room_id):
     if len(room["members"]) >= max_members:
         return error("방 정원이 가득 찼습니다.", 409)
 
+    # waiting 상태 일때만 추가 
     rooms.update_one(
-        {"id": room_id},
+        {"id": room_id, "status" : "waiting"},
         {"$push": {"members": {
             "id": user_id,
             "name": user["name"],
@@ -229,6 +242,76 @@ def join_room(room_id):
 
     return jsonify({"status": "success", "room": get_room(room_id)})
 
+# 8. 운동방 시작 
+@app.route("/api/rooms/<room_id>/start", methods=["POST"])
+@jwt_required()
+def roomstart(room_id):
+    register_id = get_jwt_identity()
+    check_room = rooms.find_one({
+        "id" : room_id,
+        "members" : {
+            "$elemMatch" : {
+                "id" : register_id,
+                "isHost" : True,
+            }
+        }
+    })
+    if check_room is None : 
+            return error("유효하지 않은 방이거나, 호스트가 아닙니다.", 403)
+    else : # 유효한 방 && 호스트 
+        if len(check_room["members"]) <= 1 :
+            return error("운동을 시작할 참여자가 없습니다", 409)
+        #모든 참여자의 ready 상태 확인
+        all_guest_ready = True
+        for member in check_room["members"] :
+            if member.get("isHost", False) : continue
+
+            if not member.get("isReady", False) : 
+                all_guest_ready = False
+                break
+        if not all_guest_ready : 
+            return error("모든 참여자가 준비하지 않았습니다", 403)
+
+        members_id = []
+        for member in check_room["members"] :
+            user_id = member.get("id")
+            if user_id:
+                members_id.append(user_id)
+
+        user_list = users.find(
+            {"id" : {"$in": members_id}},
+            {
+                "_id" : 0,
+                "name" : 1,
+                "phone" : 1,
+            }
+        )
+
+        result = rooms.update_one(
+                            {
+                                "id" : room_id ,
+                                "status" : "waiting",
+                                },
+                            {"$set" : {
+                                "status": "start",
+                                "startedAt" : datetime.now().isoformat(),
+                
+                                }}
+                        )
+        # 동시성 처리 : 
+        if result.modified_count == 0 :
+            return error (
+                "시작 할 수 없는 방입니다", 409
+            )
+
+
+        for u in user_list :
+            uphone = u.get("phone")
+            uname = u.get("name")
+            send_sms(uphone, uname)
+
+
+        return jsonify({"status" : "success" })
 
 # 8. 운동방 나가기 API
 @app.route("/api/rooms/<room_id>/leave", methods=["POST"])
@@ -281,7 +364,46 @@ def delete_room(room_id):
     return jsonify({"status": "success", "message": "방이 삭제되었습니다."})
 
 
-# 8. 운동 시작, 일시정지, 종료 API
+
+    
+            
+                
+
+# 9. 유저별 대기 상태 전환
+@app.route("/api/rooms/<room_id>/ready", methods=["POST"])
+@jwt_required()
+def update_ready(room_id):
+    user_id = get_jwt_identity()
+    data = request.get_json() or {}
+    is_ready = data.get("isReady")
+
+    if not isinstance(is_ready, bool):
+        return error(
+            "유효하지않은 요청입니다"
+        ), 400
+
+    result = rooms.update_one(
+        {
+            "id" : room_id,
+            "status" : "waiting",
+            "members" : {
+                "$elemMatch" : {
+                    "id" : user_id,
+                    "isHost" : False,
+                    }
+                },
+            },
+            {
+                "$set" : {"members.$.isReady" : is_ready,}
+            },
+    )
+    return jsonify({"status" : "success"})
+
+    
+    
+
+
+# 10. 개인 운동 시작, 일시정지, 종료 API
 @app.route("/api/rooms/<room_id>/workout", methods=["POST"])
 def workout(room_id):
     data = request.get_json() or {}
@@ -297,6 +419,7 @@ def workout(room_id):
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
+    # status 은 현재 운동방의 상태이므로, 별도 멤버별 자신의 운동 상태 필드가 필요함.
     rooms.update_one(
         {"id": room_id, "members.id": user_id},
         {
@@ -310,7 +433,8 @@ def workout(room_id):
         "room": get_room(room_id),
     })
 
-# 9. 마이페이지(히스토리)
+
+# 11. 마이페이지(히스토리)
 @app.route('/api/me', methods = ["GET"])
 @jwt_required()
 def userme(): 
@@ -319,12 +443,31 @@ def userme():
     
     return jsonify({"status" : "success", "id" : user_id, "name": user["name"]})
 
+
     
-    
-# 10. 
-# @jwt.expired_token_loader
-# def expired_token_callback():
-    
+# 12. jwt 만료 콜백 함수
+@jwt.expired_token_loader
+def expired_token_callback(jwt_header, jwt_payload):
+    token_type = jwt_payload.get("type")
+
+    if token_type == "access" :
+        return jsonify({
+            "status" : "error",
+            "error_code" : "ACCESS_TOKEN_EXPIRED",
+            "message" : "ACCESS TOKEN 만료됨"
+
+                        }), 401
+    return jsonify({
+            "status" : "error",
+            "error_code" : "REFRESH_TOKEN_EXPIRED",
+            "message" : "재로그인 필요"
+
+                        }), 401
+
+# 12. access token 재발급 
+# @app.route('/api/refresh')
+# def refresh_token():
+#     token_status = get
     
 
 if __name__ == "__main__":

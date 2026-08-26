@@ -261,6 +261,53 @@
 
                 </div>
 
+                <!-- telephone -->
+                <div class="
+                    mt-[12px]
+
+                    flex
+                    h-[48px]
+                    items-center
+                ">
+
+                    <label
+                        for="phone"
+                        class="
+                            w-[38px]
+
+                            text-[18px]
+                            leading-none
+                            font-normal
+                        "
+                    >
+                        전화번호
+                    </label>
+
+                    <input
+                        id="user-phone"
+                        name="phone"
+                        type="text"
+                        placeholder="예: 010-1234-5678"
+                        pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
+                        class="
+                            w-0
+                            h-[48px]
+                            flex-1
+
+                            rounded-[20px]
+                            border-0
+
+                            bg-white
+                            px-[20px]
+
+                            text-[18px]
+                            font-medium
+                            text-black
+                        "
+                    >
+
+                </div>
+
 
                 <div class="
                     mt-[52px]
@@ -372,17 +419,23 @@
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");
         });
-
+        const phone = document.querySelector("#user-phone");
         async function signup() {
             const id = document.querySelector("#user-id").value;
             const password = document.querySelector("#user-password").value;
             const name = document.querySelector("#user-name").value;
 
+            if (!valid_phone_number()) {
+                phone.value = "";
+                return;
+                
+            }
+
             try {
                 const response = await fetch("/api/signup", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ id, password, name }),
+                    body: JSON.stringify({ id, password, name, phone }),
                 });
                 const result = await response.json();
 
@@ -395,6 +448,18 @@
             } catch (error) {
                 alert("회원가입 요청에 실패했습니다.");
             }
+        }
+
+        function valid_phone_number() {
+            
+            if (!phone.checkValidity()) {
+                phone.setCustomValidity("올바른 전화번호 형식을 입력해주세요");
+                phone.reportValidity();
+                return false;
+            }
+
+            phone.setCustomValidity("");
+            return true;
         }
     </script>
 
