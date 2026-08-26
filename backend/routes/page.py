@@ -20,6 +20,7 @@ def signup():
     return render_template("signup.html")
 
 @page_bp.route("/main")
+@jwt_required()
 def main():
     user_id = get_jwt_identity()
 
@@ -33,6 +34,7 @@ def main():
     )
 
 @page_bp.route("/room")
+@jwt_required()
 def room():
     user_id = get_jwt_identity()
 
