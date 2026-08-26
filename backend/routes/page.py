@@ -29,6 +29,19 @@ def room():
 def complete():
     return render_template("complete.html")
 
+@page_bp.route("/mypage")
+def mypage():
+    user_id = get_jwt_identity()
+
+    me = users.find_one(
+        {"id": user_id},
+        {"_id": 0, "password": 0}
+    )
+    return render_template(
+        "main.html",
+        me=me,
+    )
+
 @page_bp.route("/sangmin/time")
 def sangmin_time():
     received_at = time.time_ns()
