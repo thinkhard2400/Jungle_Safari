@@ -28,7 +28,7 @@ function getServerNow() {
 
 async function getRooms() {
     const response = await fetch(
-        "http://43.201.67.185:5000/sangmin/rooms"
+        "http://43.201.67.185:5000/api/rooms"
     );
 
     const data = await response.json();
