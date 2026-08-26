@@ -7,10 +7,17 @@ from flask_cors import CORS
 from pymongo import MongoClient
 from config import DATABASE_NAME, DEBUG, HOST, MONGO_URI, PORT
 from flask_jwt_extended import *
+from routes.page import page_bp
 
 # 1. Flask와 MongoDB 준비
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_folder="../frontend",
+    template_folder="../frontend",
+    static_url_path="",
+)
 CORS(app)  # 다른 포트에서 실행되는 프론트엔드의 요청을 허용합니다.
+app.register_blueprint(page_bp)
 
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
@@ -30,13 +37,7 @@ def get_room(room_id):
     return rooms.find_one({"id": room_id}, {"_id": 0})
 
 
-# 2. 서버가 정상적으로 실행되는지 확인하는 API
-@app.route("/", methods=["GET"])
-def home():
-    return "Project 482 API is running!"
-
-
-# 3. 회원가입 API
+# 2. 회원가입 API
 @app.route("/api/signup", methods=["POST"])
 def signup():
     data = request.get_json() or {}
@@ -69,7 +70,7 @@ def signup():
     }), 201
 
 
-# 4. 로그인 API
+# 3. 로그인 API
 @app.route("/api/login", methods=["POST"])
 def login():
     data = request.get_json() or {}
@@ -113,7 +114,7 @@ def login():
     
 
 
-# 5. 운동방 목록 API
+# 4. 운동방 목록 API
 @app.route("/api/rooms", methods=["GET"])
 def get_rooms():
     room_list = rooms.find({}, {"_id": 0}).sort("timestamp", -1)
@@ -123,7 +124,7 @@ def get_rooms():
     })
 
 
-# 6. 운동방 생성 API
+# 5. 운동방 생성 API
 @app.route("/api/rooms", methods=["POST"])
 def create_room():
     data = request.get_json() or {}
@@ -156,7 +157,7 @@ def create_room():
     return jsonify({"status": "success", "room": room}), 201
 
 
-# 7. 운동방 상세 조회 API
+# 6. 운동방 상세 조회 API
 @app.route("/api/rooms/<room_id>", methods=["GET"])
 def get_room_detail(room_id):
     room = get_room(room_id)
@@ -167,7 +168,7 @@ def get_room_detail(room_id):
     return jsonify({"status": "success", "room": room})
 
 
-# 8. 운동방 참여 API
+# 7. 운동방 참여 API
 @app.route("/api/rooms/<room_id>/join", methods=["POST"])
 def join_room(room_id):
     data = request.get_json() or {}
@@ -199,7 +200,7 @@ def join_room(room_id):
     return jsonify({"status": "success", "room": get_room(room_id)})
 
 
-# 9. 운동 시작, 일시정지, 종료 API
+# 8. 운동 시작, 일시정지, 종료 API
 @app.route("/api/rooms/<room_id>/workout", methods=["POST"])
 def workout(room_id):
     data = request.get_json() or {}
