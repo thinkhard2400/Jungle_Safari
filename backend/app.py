@@ -169,6 +169,7 @@ def create_room():
         "name": room_name,
         "time": data.get("time", ""),
         "max": int(data.get("max", data.get("maxMembers", 4))),
+        "hostId": host_id,
         "status": "waiting",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "members": [{
@@ -268,7 +269,12 @@ def delete_room(room_id):
     if room is None:
         return error("방을 찾을 수 없습니다.", 404)
 
-    if room.get("hostId") != user_id:
+    is_host = room.get("hostId") == user_id or any(
+        member.get("id") == user_id and member.get("isHost")
+        for member in room.get("members", [])
+    )
+
+    if not is_host:
         return error("방장만 방을 삭제할 수 있습니다.", 403)
 
     rooms.delete_one({"id": room_id})
