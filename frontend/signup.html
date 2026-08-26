@@ -142,7 +142,7 @@
                     <label
                         for="user-id"
                         class="
-                            w-[21px]
+                            w-[38px]
 
                             text-[18px]
                             leading-none
@@ -159,8 +159,6 @@
                         type="text"
                         autocomplete="username"
                         class="
-                            ml-[17px]
-
                             h-[48px]
                             flex-1
 
@@ -189,7 +187,7 @@
                     <label
                         for="user-password"
                         class="
-                            w-[21px]
+                            w-[38px]
 
                             text-[18px]
                             leading-none
@@ -204,10 +202,8 @@
                         id="user-password"
                         name="password"
                         type="password"
-                        autocomplete="current-password"
+                        autocomplete="new-password"
                         class="
-                            ml-[17px]
-
                             h-[48px]
                             flex-1
 
@@ -225,16 +221,120 @@
 
                 </div>
 
-                <button
-                    type="button"
-                    onclick="location.href='./main.html'"
-                    class="
-                        mt-[13px]
-                        ml-auto
-                        block
+                <div class="
+                    mt-[12px]
+
+                    flex
+                    h-[48px]
+                    items-center
+                ">
+
+                    <label
+                        for="user-name"
+                        class="
+                            w-[38px]
+
+                            text-[18px]
+                            leading-none
+                            font-normal
+                            tracking-[-0.02em]
+                        "
+                    >
+                        이름
+                    </label>
+
+                    <input
+                        id="user-name"
+                        name="name"
+                        type="text"
+                        class="
+                            h-[48px]
+                            flex-1
+
+                            rounded-[20px]
+                            border-0
+
+                            bg-white
+                            px-[20px]
+
+                            text-[18px]
+                            font-medium
+                            text-black
+                        "
+                    >
+
+                </div>
+
+
+                <div class="
+                    mt-[52px]
+                    ml-[21px]
+
+                    flex
+                    flex-col
+                    gap-[12px]
+                ">
+
+                    <label class="
+                        flex
+                        items-center
+                        gap-[10px]
+
+                        text-[16px]
+                        leading-none
+                        font-thin
+                    ">
+                        <input
+                            type="checkbox"
+                            checked
+                            class="
+                                h-[18px]
+                                w-[18px]
+
+                                accent-white
+                            "
+                        >
+                        <span>
+                            서비스 이용약관에 동의합니다
+                        </span>
+                    </label>
+
+                    <label class="
+                        flex
+                        items-center
+                        gap-[10px]
+
+                        text-[16px]
+                        leading-none
+                        font-thin
+                    ">
+
+                        <input
+                            type="checkbox"
+                            checked
+                            class="
+                                h-[18px]
+                                w-[18px]
+
+                                accent-white
+                            "
+                        >
+                        <span>
+                            개인정보 처리방침에 동의합니다
+                        </span>
+                    </label>
+                </div>
+            </form>
+
+            <button
+                type="button"
+                onclick="location.href='./main.html'"
+                class="
+                        mt-[24px]
+                        mx-[12px]
 
                         h-[48px]
-                        w-[161px]
+                        w-[calc(100%-24px)]
 
                         rounded-[20px]
 
@@ -245,11 +345,9 @@
                         leading-none
                         font-extrabold
                     "
-                >
-                    Log in
-                </button>
-
-            </form>
+            >
+                Sign up
+            </button>
 
             <div class="
                 px-[20px]

@@ -51,7 +51,7 @@ headerArea.innerHTML = `
 
     <div class="
         mx-[20px]
-        h-px
+        h-[1px]
         bg-white/20
     "></div>
 

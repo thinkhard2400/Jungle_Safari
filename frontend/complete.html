@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://cdn.jsdelivr.net"
+        crossorigin
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link
+        rel="stylesheet"
+        crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    >
+
+    <link
+        rel="preload"
+        as="image"
+        href="./images/bg.jpeg"
+    >
+
+    <script src="./js/store.js"></script>
+
+    <script
+        src="./components/header.js"
+        defer
+    ></script>
+
+    <title>Project 482</title>
+
+    <style>
+        html {
+            visibility: hidden;
+        }
+
+        html.fonts-loaded {
+            visibility: visible;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #000;
+            font-family: "Pretendard Variable", sans-serif;
+            overflow: hidden;
+        }
+
+        .progress-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+
+            -webkit-mask:
+                radial-gradient(farthest-side,
+                    transparent calc(100% - 5px),
+                    #000 0);
+
+            mask:
+                radial-gradient(farthest-side,
+                    transparent calc(100% - 5px),
+                    #000 0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="
+        relative
+        h-dvh
+        w-full
+        overflow-hidden
+
+        bg-[url('./images/bg.jpeg')]
+        bg-cover
+        bg-center
+
+        text-white
+    ">
+
+        <div class="
+            absolute
+            inset-0
+
+            bg-black/65
+        "></div>
+
+        <div class="
+            absolute
+            left-[env(safe-area-inset-left)]
+            right-[env(safe-area-inset-right)]
+            top-[env(safe-area-inset-top)]
+            bottom-[env(safe-area-inset-bottom)]
+
+            flex
+            flex-col
+        ">
+
+            <div id="header-area"></div>
+
+            <section class="
+                mt-[48px]
+                px-[30px]
+            ">
+
+                <div class="
+                    text-[28px]
+                    leading-none
+                    font-black
+                ">
+                    오늘의 운동 완료
+                </div>
+
+
+                <div class="
+                    mt-[27px]
+
+                    text-[24px]
+                    leading-none
+                    font-semibold
+                ">
+                    08/24 23:00 ~ 23:30
+                </div>
+
+            </section>
+
+            <section class="
+                mt-[52px]
+                px-[32px]
+
+                flex
+                flex-1
+                flex-col
+                items-center
+            ">
+
+                <div class="
+                    relative
+
+                    h-[300px]
+                    w-[300px]
+
+                    rounded-full
+                    bg-white/25
+                ">
+                    <div
+                        id="workout-progress"
+                        class="progress-ring"
+                    ></div>
+
+                    <div class="
+                        h-full
+                        w-full
+
+                        flex
+                        flex-col
+                        items-center
+                    ">
+                        <div class="
+                            mt-[70px]
+
+                            text-[27px]
+                            leading-none
+                            font-black
+                        ">
+                            8월 둘째주
+                        </div>
+
+                        <img
+                            src="./images/timer.svg"
+                            class="
+                                mt-[27px]
+
+                                h-[43px]
+                                w-[43px]
+                            "
+                        >
+
+                        <div
+                            id="workout-time"
+                            class="
+                                mt-[22px]
+
+                                text-[52px]
+                                font-black
+                            "
+                        >
+                            87:42
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    onclick="location.href='./main.html'"
+                    class="
+                    absolute
+                    bottom-[10px]
+                    right-[10px]
+                    left-[10px]
+
+                    h-[48px]
+                    rounded-[20px]
+
+                    bg-[#05D082]
+                    text-white
+
+                    text-[18px]
+                    font-black
+                "
+                >
+                    완료
+                </button>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+        const workoutProgress = document.getElementById("workout-progress");
+        const workoutTimeText = document.getElementById("workout-time");
+
+        const goalTime = 82 * 60 * 1000;
+
+        const workoutTime =
+            87 * 60 * 1000 +
+            42 * 1000;
+
+        function getProgressBackground(time) {
+
+            if (time <= goalTime) {
+
+                const progress = time / goalTime * 100;
+
+                return `
+                    conic-gradient(
+                        #05D082 0% ${progress}%,
+                        rgba(255, 255, 255, 0.25) ${progress}% 100%
+                    )
+                `;
+            }
+
+            const progress = Math.min(
+                (time - goalTime) / goalTime * 100,
+                100
+            );
+            return `
+                conic-gradient(
+                    #FF4545 0% ${progress}%,
+                    #05D082 ${progress}% 100%
+                )
+            `;
+        }
+
+        function getTimeText(time) {
+            const totalSeconds = Math.floor(time / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = String(
+                totalSeconds % 60
+            ).padStart(2, "0");
+            return `${minutes}:${seconds}`;
+        }
+
+        function animateProgress(time) {
+            const firstLapTime = Math.min(time, goalTime);
+            const secondLapTime = Math.max(
+                Math.min(time - goalTime, goalTime),
+                0
+            );
+            const firstDuration = 1000 * (firstLapTime / goalTime);
+            const secondDuration = 1000 * (secondLapTime / goalTime);
+            const startTime = performance.now();
+
+            function animateFirstLap(now) {
+                const progress = Math.min(
+                    (now - startTime) / firstDuration,
+                    1
+                );
+                const percent =
+                    progress *
+                    (firstLapTime / goalTime) *
+                    100;
+                workoutProgress.style.background = `
+                    conic-gradient(
+                        #05D082 0% ${percent}%,
+                        rgba(255, 255, 255, 0.25) ${percent}% 100%
+                    )
+                `;
+                if (progress < 1) {
+                    requestAnimationFrame(animateFirstLap);
+                    return;
+                }
+                if (time > goalTime) {
+                    requestAnimationFrame(animateSecondLap);
+                }
+            }
+
+            let secondStartTime;
+            function animateSecondLap(now) {
+                if (!secondStartTime) {
+                    secondStartTime = now;
+                }
+                const progress = Math.min(
+                    (now - secondStartTime) / secondDuration,
+                    1
+                );
+                const percent =
+                    progress *
+                    (secondLapTime / goalTime) *
+                    100;
+                workoutProgress.style.background = `
+                    conic-gradient(
+                        #FF4545 0% ${percent}%,
+                        #05D082 ${percent}% 100%
+                    )
+                `;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateSecondLap);
+                }
+            }
+            requestAnimationFrame(animateFirstLap);
+        }
+
+        animateProgress(workoutTime);
+
+        workoutTimeText.textContent =
+            getTimeText(workoutTime);
+
+        document.fonts.ready.then(() => {
+            document.documentElement.classList.add("fonts-loaded");
+        });
+    </script>
+
+</body>
+
+</html>
