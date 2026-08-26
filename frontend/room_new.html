@@ -111,7 +111,11 @@
                             data-sport="농구"
                             class="sport-option rounded-[12px] p-[6px] text-[11px]"
                         >
-                            <img src="./images/sports_basketball.svg" alt="농구" class="mx-auto h-[30px]">
+                            <img
+                                src="./images/sports_basketball.svg"
+                                alt="농구"
+                                class="mx-auto h-[30px]"
+                            >
                             <span>농구</span>
                         </button>
                         <button
@@ -119,7 +123,11 @@
                             data-sport="헬스"
                             class="sport-option rounded-[12px] p-[6px] text-[11px]"
                         >
-                            <img src="./images/sports_gym.svg" alt="헬스" class="mx-auto h-[30px]">
+                            <img
+                                src="./images/sports_gym.svg"
+                                alt="헬스"
+                                class="mx-auto h-[30px]"
+                            >
                             <span>헬스</span>
                         </button>
                         <button
@@ -127,7 +135,11 @@
                             data-sport="런닝"
                             class="sport-option rounded-[12px] p-[6px] text-[11px] ring-2 ring-[#05D082] bg-[#05D082]/20"
                         >
-                            <img src="./images/sports_run.svg" alt="런닝" class="mx-auto h-[30px]">
+                            <img
+                                src="./images/sports_run.svg"
+                                alt="런닝"
+                                class="mx-auto h-[30px]"
+                            >
                             <span>런닝</span>
                         </button>
                         <button
@@ -135,7 +147,11 @@
                             data-sport="축구"
                             class="sport-option rounded-[12px] p-[6px] text-[11px]"
                         >
-                            <img src="./images/sports_soccer.svg" alt="축구" class="mx-auto h-[30px]">
+                            <img
+                                src="./images/sports_soccer.svg"
+                                alt="축구"
+                                class="mx-auto h-[30px]"
+                            >
                             <span>축구</span>
                         </button>
                         <button
@@ -143,7 +159,11 @@
                             data-sport="스트레칭"
                             class="sport-option rounded-[12px] p-[6px] text-[11px]"
                         >
-                            <img src="./images/sports_stretching.svg" alt="스트레칭" class="mx-auto h-[30px]">
+                            <img
+                                src="./images/sports_stretching.svg"
+                                alt="스트레칭"
+                                class="mx-auto h-[30px]"
+                            >
                             <span>스트레칭</span>
                         </button>
                     </div>
@@ -158,7 +178,10 @@
                         <span>날짜</span>
                         <span class="text-[#05D082]">⌄</span>
                     </button>
-                    <div id="date-panel" class="hidden pt-[12px]">
+                    <div
+                        id="date-panel"
+                        class="hidden pt-[12px]"
+                    >
                         <input
                             id="room-date"
                             type="date"
@@ -176,7 +199,10 @@
                         <span>시간</span>
                         <span class="text-[#05D082]">⌄</span>
                     </button>
-                    <div id="time-panel" class="hidden pt-[12px]">
+                    <div
+                        id="time-panel"
+                        class="hidden pt-[12px]"
+                    >
                         <div class="flex items-center gap-[8px]">
                             <select
                                 id="room-time-start"
@@ -207,7 +233,10 @@
                         >
                             <option value="2">2명</option>
                             <option value="3">3명</option>
-                            <option value="4" selected>4명</option>
+                            <option
+                                value="4"
+                                selected
+                            >4명</option>
                         </select>
                     </label>
                 </div>
@@ -321,7 +350,7 @@
 
             if (!hostId) {
                 alert("로그인 후 방을 만들 수 있습니다.");
-                location.href = "./login.html";
+                location.href = "./login";
                 return;
             }
 
@@ -354,7 +383,7 @@
                     return;
                 }
 
-                location.href = "./main.html";
+                location.href = "./room";
             } catch (error) {
                 alert("방 생성 요청에 실패했습니다.");
             }
