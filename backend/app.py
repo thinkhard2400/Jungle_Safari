@@ -168,7 +168,7 @@ def create_room():
     }
 
     rooms.insert_one(room)
-    return jsonify({"status": "success", "room": room}), 201
+    return jsonify({"status": "success", "room": get_room(room["id"])}), 201
 
 
 # 6. 운동방 상세 조회 API
