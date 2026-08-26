@@ -75,92 +75,79 @@
             <div id="header-area"></div>
 
             <div class="
+                mx-[16px]
                 mt-[24px]
-                pl-[24px]
-                pr-[24px]
-
-                grid
-                grid-cols-[60px_minmax(0,1fr)]
-                items-center
-                gap-x-[9px]
-                gap-y-[12px]
+                rounded-[24px]
+                border
+                border-white/20
+                bg-black/75
+                px-[20px]
+                py-[8px]
             ">
 
-                <label
-                    for="room-name"
-                    class="
-                        text-[18px]
-                        font-normal
-                    "
-                >
-                    방 이름
+                <label class="block py-[14px] text-[18px] font-normal">
+                    <span class="block mb-[8px]">방 이름</span>
+                    <input
+                        id="room-name"
+                        type="text"
+                        placeholder="방 이름을 입력해주세요"
+                        class="
+                            h-[44px]
+                            w-full
+                            rounded-full
+                            bg-white
+                            px-[18px]
+                            text-[16px]
+                            text-black
+                        "
+                    >
                 </label>
 
-                <input
-                    id="room-name"
-                    type="text"
-                    class="
-                        h-[48px]
+                <div class="border-t border-white/15 py-[14px]">
+                    <button
+                        id="date-toggle"
+                        type="button"
+                        class="flex w-full items-center justify-between text-left text-[18px]"
+                    >
+                        <span>날짜</span>
+                        <span class="text-[#05D082]">⌄</span>
+                    </button>
+                    <div id="date-panel" class="hidden pt-[12px]">
+                        <input
+                            id="room-date"
+                            type="date"
+                            class="h-[44px] w-full rounded-full bg-white px-[18px] text-[16px] text-black"
+                        >
+                    </div>
+                </div>
 
-                        rounded-full
-                        bg-white
-                        px-[18px]
-
-                        text-[18px]
-                        text-black
-                    "
-                >
-
-                <label
-                    for="room-date"
-                    class="
-                        text-[18px]
-                        font-normal
-                    "
-                >
-                    날짜
-                </label>
-
-                <input
-                    id="room-date"
-                    type="text"
-                    class="
-                        h-[48px]
-
-                        rounded-full
-                        bg-white
-                        px-[18px]
-
-                        text-[18px]
-                        text-black
-                    "
-                >
-
-                <label
-                    for="room-time"
-                    class="
-                        text-[18px]
-                        font-normal
-                    "
-                >
-                    시간
-                </label>
-
-                <input
-                    id="room-time"
-                    type="text"
-                    class="
-                        h-[48px]
-
-                        rounded-full
-                        bg-white
-                        px-[18px]
-
-                        text-[18px]
-                        text-black
-                    "
-                >
-
+                <div class="border-t border-white/15 py-[14px]">
+                    <button
+                        id="time-toggle"
+                        type="button"
+                        class="flex w-full items-center justify-between text-left text-[18px]"
+                    >
+                        <span>시간</span>
+                        <span class="text-[#05D082]">⌄</span>
+                    </button>
+                    <div id="time-panel" class="hidden pt-[12px]">
+                        <div class="flex items-center gap-[8px]">
+                            <select
+                                id="room-time-start"
+                                class="h-[44px] min-w-0 flex-1 rounded-full bg-white px-[12px] text-[16px] text-black"
+                            >
+                                <option value="">시작 시간</option>
+                            </select>
+                            <span>~</span>
+                            <select
+                                id="room-time-end"
+                                class="h-[44px] min-w-0 flex-1 rounded-full bg-white px-[12px] text-[16px] text-black"
+                            >
+                                <option value="">종료 시간</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <button
@@ -195,11 +182,36 @@
             document.documentElement.classList.add("fonts-loaded");
         });
 
+        document.querySelector("#date-toggle").addEventListener("click", () => {
+            document.querySelector("#date-panel").classList.toggle("hidden");
+        });
+
+        document.querySelector("#time-toggle").addEventListener("click", () => {
+            document.querySelector("#time-panel").classList.toggle("hidden");
+        });
+
+        function addTimeOptions(selectId) {
+            const select = document.querySelector(selectId);
+
+            for (let minutes = 0; minutes < 24 * 60; minutes += 10) {
+                const hour = String(Math.floor(minutes / 60)).padStart(2, "0");
+                const minute = String(minutes % 60).padStart(2, "0");
+                const option = document.createElement("option");
+                option.value = `${hour}:${minute}`;
+                option.textContent = `${hour}:${minute}`;
+                select.appendChild(option);
+            }
+        }
+
+        addTimeOptions("#room-time-start");
+        addTimeOptions("#room-time-end");
+
         async function createRoom() {
             const hostId = localStorage.getItem("userId");
             const roomName = document.querySelector("#room-name").value.trim();
             const date = document.querySelector("#room-date").value.trim();
-            const time = document.querySelector("#room-time").value.trim();
+            const startTime = document.querySelector("#room-time-start").value;
+            const endTime = document.querySelector("#room-time-end").value;
 
             if (!hostId) {
                 alert("로그인 후 방을 만들 수 있습니다.");
@@ -207,8 +219,13 @@
                 return;
             }
 
-            if (!roomName || !date || !time) {
+            if (!roomName || !date || !startTime || !endTime) {
                 alert("방 이름, 날짜, 시간을 모두 입력해주세요.");
+                return;
+            }
+
+            if (startTime >= endTime) {
+                alert("종료 시간은 시작 시간보다 늦어야 합니다.");
                 return;
             }
 
@@ -218,7 +235,7 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         roomName,
-                        time: `${date} ${time}`,
+                        time: `${date} ${startTime} ~ ${endTime}`,
                         hostId,
                     }),
                 });
