@@ -240,10 +240,11 @@
                 total += getNow() - startedAt;
             }
 
-            return total;
+            return Math.max(0, total);
         }
 
         function formatTime(milliseconds) {
+            milliseconds = Math.max(0, milliseconds);
             const seconds = Math.floor(milliseconds / 1000);
             const minutes = Math.floor(seconds / 60);
             return `${minutes}:${String(seconds % 60).padStart(2, "0")}`;
