@@ -21,15 +21,43 @@ def signup():
 
 @page_bp.route("/main")
 def main():
-    return render_template("main.html")
+    user_id = get_jwt_identity()
+
+    me = users.find_one(
+        {"id": user_id},
+    )
+
+    return render_template(
+        "main.html",
+        me=me
+    )
 
 @page_bp.route("/room")
 def room():
-    return render_template("room.html")
+    user_id = get_jwt_identity()
+
+    me = users.find_one(
+        {"id": user_id},
+    )
+
+    return render_template(
+        "room.html",
+        me=me
+    )
 
 @page_bp.route("/complete")
+@jwt_required()
 def complete():
-    return render_template("complete.html")
+    user_id = get_jwt_identity()
+
+    me = users.find_one(
+        {"id": user_id},
+    )
+
+    return render_template(
+        "complete.html",
+        me=me
+    )
 
 @page_bp.route("/mypage")
 @jwt_required()
@@ -38,11 +66,7 @@ def mypage():
 
     me = users.find_one(
         {"id": user_id},
-        {"_id": 0, "password": 0}
     )
-
-    if me is None:
-        return "사용자를 찾을 수 없습니다.", 404
 
     return render_template(
         "mypage.html",

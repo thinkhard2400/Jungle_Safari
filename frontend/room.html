@@ -28,10 +28,6 @@
     >
 
     <script src="./js/store.js"></script>
-    <script
-        src="./components/header.js"
-        defer
-    ></script>
 
     <title>Project 482</title>
 
@@ -94,7 +90,7 @@
             flex-col
         ">
 
-            <div id="header-area"></div>
+            {% include "components/header.html" %}
 
             <section class="
                 px-[30px]
@@ -215,21 +211,21 @@
                 document.getElementById("room-time").textContent = roomData.time;
 
                 roomData.members.forEach(member => {
-                const participant = document.createElement("div");
+                    const participant = document.createElement("div");
 
-                const statusText = member.isHost
-                    ? "방장"
-                    : member.isReady
-                        ? "준비완료"
-                        : "준비중";
+                    const statusText = member.isHost
+                        ? "방장"
+                        : member.isReady
+                            ? "준비완료"
+                            : "준비중";
 
-                const statusColor = member.isHost
-                    ? "text-[#ffffff]"
-                    : member.isReady
-                        ? "text-[#05D082]"
-                        : "text-[#DC4778]";
+                    const statusColor = member.isHost
+                        ? "text-[#ffffff]"
+                        : member.isReady
+                            ? "text-[#05D082]"
+                            : "text-[#DC4778]";
 
-                participant.className = `
+                    participant.className = `
                 h-[60px]
                 rounded-[12px]
 
@@ -242,7 +238,7 @@
                 justify-between
             `;
 
-                participant.innerHTML = `
+                    participant.innerHTML = `
                 <span class="
                     text-[24px]
                     leading-none
