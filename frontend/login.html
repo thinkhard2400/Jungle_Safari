@@ -224,14 +224,8 @@
                 </div>
 
                 <button
-<<<<<<< Updated upstream
-                    type="button"
-                    onclick="login()"
-=======
-                    type="submit"
-                    <!-- 테스트후 onclick 지울것 -->
-                    onclick="location.href='./main.html'"
->>>>>>> Stashed changes
+                    type="submit",
+                    
                     class="
                         mt-[13px]
                         ml-auto
@@ -282,37 +276,16 @@
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");
         });
-<<<<<<< Updated upstream
-        
-        function login() {
-            const id = $("#user-id").val();
-            const password = $("#user-password").val();
-=======
 
         $("$loginForm").on("submit", function(e) {
             e.preventDefault();
 
             let id = $("$user-id").val();
             let pw = $("$user-password").val();
->>>>>>> Stashed changes
 
             $.ajax({
                 type: "POST",
                 url: "/api/login",
-<<<<<<< Updated upstream
-                contentType: "application/json",
-                data: JSON.stringify({ id: id, password: password }),
-                success: function(response) {
-                    if (response.status === "success") {
-                        location.href = "./main.html";
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr) {
-                    alert(xhr.responseJSON?.message || "로그인에 실패했습니다.");
-                }
-=======
                 contentType : "application/json",
 
                 data: JSON.stringify({id :id, password: pw }),
@@ -325,7 +298,6 @@
                     }
                     console.log(response["message"]);
                 } 
->>>>>>> Stashed changes
             });
         });
         
