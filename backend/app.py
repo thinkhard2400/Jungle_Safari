@@ -294,7 +294,7 @@ def roomstart(room_id):
                                 },
                             {"$set" : {
                                 "status": "start",
-                                "startedAt" : datetime.now().isoformat(),
+                                "startedAt" : datetime.now(timezone.utc).isoformat(),
                 
                                 }}
                         )

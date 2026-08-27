@@ -209,6 +209,7 @@
         const participantList = document.getElementById("participant-list");
         let roomData = null;
         let tickTimer = null;
+        let pollTimer = null;
 
         function getNow() {
             return Date.now();
@@ -223,6 +224,13 @@
         function getWorkoutMilliseconds(logs) {
             let total = 0;
             let startedAt = null;
+            const sharedStartedAt = roomData?.status === "start" && roomData.startedAt
+                ? parseTimestamp(roomData.startedAt)
+                : null;
+
+            if (logs.length === 0 && sharedStartedAt !== null) {
+                return Math.max(0, getNow() - sharedStartedAt);
+            }
 
             logs.forEach(log => {
                 const timestamp = parseTimestamp(log.timestamp);
@@ -258,7 +266,8 @@
                 const participant = document.createElement("div");
                 const logs = member.logs || [];
                 const lastLog = logs[logs.length - 1];
-                const isWorking = lastLog?.type === "start";
+                const isWorking = lastLog?.type === "start" ||
+                    (roomData.status === "start" && logs.length === 0);
                 const statusText = isWorking ? "운동중" : "휴식중";
                 const statusColor = isWorking
                     ? "text-[#05D082]"
@@ -293,7 +302,9 @@
         function updateParticipantTimes() {
             roomData.members.forEach((member, index) => {
                 const logs = member.logs || [];
-                if (logs[logs.length - 1]?.type !== "start") return;
+                const isSharedWorkout = roomData.status === "start" &&
+                    roomData.startedAt && logs.length === 0;
+                if (logs[logs.length - 1]?.type !== "start" && !isSharedWorkout) return;
 
                 document.getElementById(`participant-time-${index}`).textContent =
                     formatTime(getWorkoutMilliseconds(logs));
@@ -302,9 +313,12 @@
 
         function scheduleNextTick() {
             clearTimeout(tickTimer);
-            if (!roomData.members.some(member =>
+            const sharedWorkout = roomData.status === "start" && roomData.startedAt;
+            const personalWorkout = roomData.members.some(member =>
                 (member.logs || []).at(-1)?.type === "start"
-            )) return;
+            );
+
+            if (!sharedWorkout && !personalWorkout) return;
 
             tickTimer = setTimeout(() => {
                 updateParticipantTimes();
@@ -329,7 +343,7 @@
             scheduleNextTick();
         }
 
-        async function loadRoom() {
+        async function fetchRoom() {
             if (!roomId) throw new Error("방 ID가 없습니다.");
 
             const response = await fetch(`/api/rooms/${encodeURIComponent(roomId)}`);
@@ -339,11 +353,28 @@
                 throw new Error("방 정보를 불러오지 못했습니다.");
             }
 
-            roomData = result.room;
+            return result.room;
+        }
+
+        function renderRoom() {
             document.getElementById("room-name").textContent = roomData.name;
             document.getElementById("room-time").textContent = roomData.time;
             renderParticipants();
             scheduleNextTick();
+        }
+
+        async function loadRoom() {
+            roomData = await fetchRoom();
+            renderRoom();
+
+            pollTimer = setInterval(async () => {
+                try {
+                    roomData = await fetchRoom();
+                    renderRoom();
+                } catch (error) {
+                    // Keep the last valid room data when a poll briefly fails.
+                }
+            }, 2000);
         }
 
         document.getElementById("play-action").onclick = () =>

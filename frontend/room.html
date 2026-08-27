@@ -261,20 +261,36 @@
 
         async function startRoom(roomId) {
             const response = await fetch(
-                `/api/rooms/${encodeURIComponent(roomId)}/workout`,
+                `/api/rooms/${encodeURIComponent(roomId)}/start`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        userId: localStorage.getItem("userId"),
-                        type: "start",
-                    }),
+                    credentials: "include",
                 }
             );
             const result = await response.json();
 
             if (!response.ok) {
                 throw new Error(result.message || "운동 시작에 실패했습니다.");
+            }
+
+            location.href = `./sample_start.html?roomId=${encodeURIComponent(roomId)}`;
+        }
+
+        async function prepareRoom(roomId) {
+            const response = await fetch(
+                `/api/rooms/${encodeURIComponent(roomId)}/ready`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({ isReady: true }),
+                }
+            );
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.message || "준비 상태 변경에 실패했습니다.");
             }
 
             location.href = `./sample_start.html?roomId=${encodeURIComponent(roomId)}`;
@@ -362,9 +378,7 @@
                 } else {
                     primaryAction.textContent = "준비하기";
                     secondaryAction.textContent = "나가기";
-                    primaryAction.onclick = () => {
-                        location.href = `./sample_start.html?roomId=${encodeURIComponent(roomId)}`;
-                    };
+                    primaryAction.onclick = () => prepareRoom(roomId).catch(error => alert(error.message));
                     secondaryAction.onclick = () => leaveRoom(roomId).catch(error => alert(error.message));
                 }
 
