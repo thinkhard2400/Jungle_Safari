@@ -47,6 +47,20 @@ def room():
         me=me
     )
 
+@page_bp.route("/room_new")
+@jwt_required()
+def room():
+    user_id = get_jwt_identity()
+
+    me = users.find_one(
+        {"id": user_id},
+    )
+
+    return render_template(
+        "room_new.html",
+        me=me
+    )
+
 @page_bp.route("/complete")
 @jwt_required()
 def complete():

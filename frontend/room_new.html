@@ -17,10 +17,6 @@
     >
 
     <script src="./js/store.js"></script>
-    <script
-        src="./components/header.js"
-        defer
-    ></script>
 
     <title>Project 482</title>
 
@@ -74,7 +70,7 @@
             flex-col
         ">
 
-            <div id="header-area"></div>
+            {% include "components/header.html" %}
 
             <div class="
                 mx-[16px]
@@ -172,81 +168,113 @@
                 </div>
 
                 <div class="border-t border-white/15 py-[14px]">
-                    <button
-                        id="date-toggle"
-                        type="button"
-                        class="flex w-full items-center justify-between text-left text-[18px]"
-                    >
-                        <span>날짜</span>
-                        <span class="text-[#05D082]">⌄</span>
-                    </button>
-                    <div
-                        id="date-panel"
-                        class="hidden pt-[12px]"
-                    >
-                        <input
-                            id="room-date"
-                            type="date"
-                            class="h-[44px] w-full rounded-full bg-white px-[18px] text-[16px] text-black"
-                        >
-                    </div>
-                </div>
+                    <span class="
+                            block
+                            mb-[10px]
 
-                <div class="border-t border-white/15 py-[14px]">
-                    <button
-                        id="time-toggle"
-                        type="button"
-                        class="flex w-full items-center justify-between text-left text-[18px]"
-                    >
-                        <span>시간</span>
-                        <span class="text-[#05D082]">⌄</span>
-                    </button>
-                    <div
-                        id="time-panel"
-                        class="hidden pt-[12px]"
-                    >
-                        <div class="flex items-center gap-[8px]">
-                            <select
-                                id="room-time-start"
-                                class="h-[44px] min-w-0 flex-1 rounded-full bg-white px-[12px] text-[16px] text-black"
-                            >
-                                <option value="">시작 시간</option>
-                            </select>
-                            <span>~</span>
-                            <select
-                                id="room-time-end"
-                                class="h-[44px] min-w-0 flex-1 rounded-full bg-white px-[12px] text-[16px] text-black"
-                            >
-                                <option value="">종료 시간</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+                            text-[18px]
+                            font-normal
+                        ">
+                        날짜
+                    </span>
 
-                <div class="border-t border-white/15 py-[14px]">
-                    <label
-                        for="room-max-members"
-                        class="flex items-center justify-between text-[18px]"
+                    <input
+                        id="room-date"
+                        type="date"
+                        class="
+                            h-[44px]
+                            w-full
+                            rounded-full
+
+                            bg-white
+                            px-[18px]
+
+                            text-[16px]
+                            text-black
+                        "
                     >
-                        <span>최대 인원</span>
+                </div>
+                <div class="border-t border-white/15 py-[14px]">
+                    <span class="
+                            block
+                            mb-[10px]
+
+                            text-[18px]
+                            font-normal
+                        ">
+                        시간
+                    </span>
+
+                    <div class="
+                            flex
+                            items-center
+                            gap-[8px]
+                        ">
                         <select
-                            id="room-max-members"
-                            class="rounded-full bg-white px-[14px] py-[8px] text-[16px] text-black"
+                            id="room-time-start"
+                            class="
+                                h-[44px]
+                                min-w-0
+                                flex-1
+                                rounded-full
+
+                                bg-white
+                                px-[12px]
+
+                                text-[16px]
+                                text-black
+                            "
                         >
-                            <option value="2">2명</option>
-                            <option value="3">3명</option>
-                            <option
-                                value="4"
-                                selected
-                            >4명</option>
+                            <option value="">시작 시간</option>
                         </select>
-                    </label>
+
+                        <span class="text-[18px]">~</span>
+
+                        <select
+                            id="room-time-end"
+                            class="
+                                    h-[44px]
+                                    min-w-0
+                                    flex-1
+                                    rounded-full
+
+                                    bg-white
+                                    px-[12px]
+
+                                    text-[16px]
+                                    text-black
+                                "
+                        >
+                            <option value="">종료 시간</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <button
-                onclick="createRoom()"
-                class="
+            <div class="border-t border-white/15 py-[14px]">
+                <label
+                    for="room-max-members"
+                    class="flex items-center justify-between text-[18px]"
+                >
+                    <span>최대 인원</span>
+                    <select
+                        id="room-max-members"
+                        class="rounded-full bg-white px-[14px] py-[8px] text-[16px] text-black"
+                    >
+                        <option value="2">2명</option>
+                        <option value="3">3명</option>
+                        <option
+                            value="4"
+                            selected
+                        >4명</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <button
+            onclick="createRoom()"
+            class="
                     absolute
                     bottom-[10px]
                     right-[10px]
@@ -262,9 +290,9 @@
                     leading-none
                     font-extrabold
                 "
-            >
-                방 만들기
-            </button>
+        >
+            방 만들기
+        </button>
 
         </div>
 
@@ -274,14 +302,6 @@
     <script>
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");
-        });
-
-        document.querySelector("#date-toggle").addEventListener("click", () => {
-            document.querySelector("#date-panel").classList.toggle("hidden");
-        });
-
-        document.querySelector("#time-toggle").addEventListener("click", () => {
-            document.querySelector("#time-panel").classList.toggle("hidden");
         });
 
         function addTimeOptions(selectId) {
@@ -301,7 +321,7 @@
         addTimeOptions("#room-time-end");
 
         function setDefaultRoomValues() {
-            document.querySelector("#room-name").value = "런닝 할 사람 번개!!!";
+            document.querySelector("#room-name").value = "런닝 할 사람!!!";
 
             const today = new Date();
             const date = [
