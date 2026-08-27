@@ -371,8 +371,8 @@ def update_ready(room_id):
 
     if not isinstance(is_ready, bool):
         return error(
-            "유효하지않은 요청입니다"
-        ), 400
+            "유효하지않은 요청입니다", 400)
+        
 
     result = rooms.update_one(
         {
