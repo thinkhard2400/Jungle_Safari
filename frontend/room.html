@@ -293,7 +293,7 @@
                 throw new Error(result.message || "준비 상태 변경에 실패했습니다.");
             }
 
-            location.href = `./sample_start.html?roomId=${encodeURIComponent(roomId)}`;
+            await loadRoom();
         }
 
         async function leaveRoom(roomId) {
@@ -382,6 +382,7 @@
                     secondaryAction.onclick = () => leaveRoom(roomId).catch(error => alert(error.message));
                 }
 
+                participantList.replaceChildren();
                 roomData.members.forEach(member => {
                     const participant = document.createElement("div");
 
@@ -438,6 +439,7 @@
         }
 
         loadRoom();
+        setInterval(loadRoom, 2000);
 
         document.fonts.ready.then(() => {
             document.documentElement.classList.add("fonts-loaded");
