@@ -4,7 +4,9 @@ import os
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 DATABASE_NAME = os.getenv("DATABASE_NAME", "project_482")
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "assign_secret_key")
-
+TW_AUTH = os.getenv("TW_AUTH")
+TW_SID = os.getenv("TW_SID")
+TW_SENDER = os.getenv("TW_SENDER")
 # Flask 서버 설정
 DEBUG = False
 HOST = "0.0.0.0"

@@ -9,7 +9,7 @@ fake = Faker("ko_KR")
 
 
 workout_type = ["러닝", "웨이트", "스트레칭"] 
-room_status = ["start", "wait" ]
+room_status = ["start", "waiting" ]
 
 rooms = []
 
