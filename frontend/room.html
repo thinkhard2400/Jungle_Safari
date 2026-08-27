@@ -332,6 +332,27 @@
             goToMain();
         }
 
+        async function joinRoom(roomId) {
+            const userId = localStorage.getItem("userId");
+            if (!userId) {
+                throw new Error("로그인 후 방에 참가할 수 있습니다.");
+            }
+
+            const response = await fetch(
+                `/api/rooms/${encodeURIComponent(roomId)}/join`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ userId }),
+                }
+            );
+            const result = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(result.message || "방 참가에 실패했습니다.");
+            }
+        }
+
         async function loadRoom() {
             const roomId = new URLSearchParams(location.search).get("roomId");
 
@@ -342,6 +363,7 @@
             }
 
             try {
+                await joinRoom(roomId);
                 const response = await fetch(`/api/rooms/${encodeURIComponent(roomId)}`);
                 const result = await response.json();
 
