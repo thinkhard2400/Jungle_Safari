@@ -5,7 +5,7 @@ import bcrypt
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 from pymongo import MongoClient
-from config import DATABASE_NAME, DEBUG, HOST, JWT_SECRET_KEY, MONGO_URI, PORT, TW_AUTH, TW_SID, TW_SENDER
+from config import DATABASE_NAME, DEBUG, HOST, JWT_SECRET_KEY, MONGO_URI, PORT
 from flask_jwt_extended import *
 from routes.page import page_bp
 
