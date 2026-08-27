@@ -49,7 +49,7 @@ def room():
 
 @page_bp.route("/room_new")
 @jwt_required()
-def room():
+def room_new():
     user_id = get_jwt_identity()
 
     me = users.find_one(
