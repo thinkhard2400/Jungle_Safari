@@ -306,7 +306,11 @@ def roomstart(room_id):
         for u in user_list :
             uphone = u.get("phone")
             uname = u.get("name")
-            send_sms(uphone, uname)
+            try:
+                send_sms(uphone, uname)
+            except Exception:
+                # 문자 발송 실패가 운동 시작 자체를 막지 않도록 합니다.
+                app.logger.exception("운동 시작 알림 문자 발송 실패")
 
 
         return jsonify({"status" : "success" })
