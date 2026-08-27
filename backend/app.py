@@ -259,8 +259,6 @@ def roomstart(room_id):
     if check_room is None : 
             return error("유효하지 않은 방이거나, 호스트가 아닙니다.", 403)
     else : # 유효한 방 && 호스트 
-        if len(check_room["members"]) <= 1 :
-            return error("운동을 시작할 참여자가 없습니다", 409)
         #모든 참여자의 ready 상태 확인
         all_guest_ready = True
         for member in check_room["members"] :
