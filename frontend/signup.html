@@ -61,7 +61,6 @@
 
     <main class="
         relative
-        mx-auto
         h-dvh
         w-full
         overflow-hidden
@@ -83,6 +82,7 @@
             to-[#000000]/70 to-95%
         "></div>
 
+
         <div class="
             absolute
             top-[env(safe-area-inset-top)]
@@ -90,8 +90,8 @@
             bottom-[env(safe-area-inset-bottom)]
             left-[env(safe-area-inset-left)]
 
-            grid
-            grid-rows-[1fr_auto_1fr]
+            flex
+            flex-col
         ">
 
             <div class="
@@ -126,258 +126,276 @@
 
             </div>
 
-            <form class="
-                w-full
-                px-[45px]
+
+            <div class="
+                flex-1
+
+                flex
+                flex-col
+                justify-center
             ">
 
-                <div class="
-                    flex
-                    h-[48px]
-                    items-center
+                <form class="
+                    w-full
+                    px-[45px]
                 ">
 
-                    <label
-                        for="user-id"
-                        class="
-                            w-[38px]
-
-                            text-[18px]
-                            leading-none
-                            font-normal
-                        "
-                    >
-                        ID
-                    </label>
-
-                    <input
-                        id="user-id"
-                        name="id"
-                        type="text"
-                        class="
-                            w-0
-                            h-[48px]
-                            flex-1
-
-                            rounded-[20px]
-                            border-0
-
-                            bg-white
-                            px-[20px]
-
-                            text-[18px]
-                            font-medium
-                            text-black
-                        "
-                    >
-
-                </div>
-
-                <div class="
-                    mt-[12px]
-
-                    flex
-                    h-[48px]
-                    items-center
-                ">
-
-                    <label
-                        for="user-password"
-                        class="
-                            w-[38px]
-
-                            text-[18px]
-                            leading-none
-                            font-normal
-                        "
-                    >
-                        PW
-                    </label>
-
-                    <input
-                        id="user-password"
-                        name="password"
-                        type="password"
-                        class="
-                            w-0
-                            h-[48px]
-                            flex-1
-
-                            rounded-[20px]
-                            border-0
-
-                            bg-white
-                            px-[20px]
-
-                            text-[18px]
-                            font-medium
-                            text-black
-                        "
-                    >
-
-                </div>
-
-                <div class="
-                    mt-[12px]
-
-                    flex
-                    h-[48px]
-                    items-center
-                ">
-
-                    <label
-                        for="user-name"
-                        class="
-                            w-[38px]
-
-                            text-[18px]
-                            leading-none
-                            font-normal
-                        "
-                    >
-                        이름
-                    </label>
-
-                    <input
-                        id="user-name"
-                        name="name"
-                        type="text"
-                        class="
-                            w-0
-                            h-[48px]
-                            flex-1
-
-                            rounded-[20px]
-                            border-0
-
-                            bg-white
-                            px-[20px]
-
-                            text-[18px]
-                            font-medium
-                            text-black
-                        "
-                    >
-
-                </div>
-
-                <!-- telephone -->
-                <div class="
-                    mt-[12px]
-
-                    flex
-                    h-[48px]
-                    items-center
-                ">
-
-                    <label
-                        for="phone"
-                        class="
-                            w-[38px]
-
-                            text-[18px]
-                            leading-none
-                            font-normal
-                        "
-                    >
-                        번호
-                    </label>
-
-                    <input
-                        id="user-phone"
-                        name="phone"
-                        type="text"
-                        pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
-                        class="
-                            w-0
-                            h-[48px]
-                            flex-1
-
-                            rounded-[20px]
-                            border-0
-
-                            bg-white
-                            px-[20px]
-
-                            text-[18px]
-                            font-medium
-                            text-black
-                        "
-                    >
-
-                </div>
-
-
-                <div class="
-                    mt-[52px]
-                    ml-[21px]
-
-                    flex
-                    flex-col
-                    gap-[12px]
-                ">
-
-                    <label class="
+                    <div class="
                         flex
+                        h-[48px]
                         items-center
-                        gap-[10px]
-
-                        text-[16px]
-                        leading-none
-                        font-normal
-                    ">
-                        <input
-                            type="checkbox"
-                            checked
-                            class="
-                                h-[18px]
-                                w-[18px]
-
-                                accent-white
-                            "
-                        >
-                        <span>
-                            서비스 이용약관에 동의합니다
-                        </span>
-                    </label>
-
-                    <label class="
-                        flex
-                        items-center
-                        gap-[10px]
-
-                        text-[16px]
-                        leading-none
-                        font-normal
                     ">
 
-                        <input
-                            type="checkbox"
-                            checked
+                        <label
+                            for="user-id"
                             class="
-                                h-[18px]
-                                w-[18px]
+                                w-[38px]
 
-                                accent-white
+                                text-[18px]
+                                leading-none
+                                font-normal
                             "
                         >
-                        <span>
-                            개인정보 처리방침에 동의합니다
-                        </span>
-                    </label>
-                </div>
-            </form>
+                            ID
+                        </label>
 
-            <button
-                type="button"
-                onclick="signup()"
-                class="
+                        <input
+                            id="user-id"
+                            name="id"
+                            type="text"
+                            class="
+                                w-0
+                                h-[48px]
+                                flex-1
+
+                                rounded-[20px]
+                                border-0
+
+                                bg-white
+                                px-[20px]
+
+                                text-[18px]
+                                font-medium
+                                text-black
+                            "
+                        >
+
+                    </div>
+
+
+                    <div class="
+                        mt-[12px]
+
+                        flex
+                        h-[48px]
+                        items-center
+                    ">
+
+                        <label
+                            for="user-password"
+                            class="
+                                w-[38px]
+
+                                text-[18px]
+                                leading-none
+                                font-normal
+                            "
+                        >
+                            PW
+                        </label>
+
+                        <input
+                            id="user-password"
+                            name="password"
+                            type="password"
+                            class="
+                                w-0
+                                h-[48px]
+                                flex-1
+
+                                rounded-[20px]
+                                border-0
+
+                                bg-white
+                                px-[20px]
+
+                                text-[18px]
+                                font-medium
+                                text-black
+                            "
+                        >
+
+                    </div>
+
+
+                    <div class="
+                        mt-[12px]
+
+                        flex
+                        h-[48px]
+                        items-center
+                    ">
+
+                        <label
+                            for="user-name"
+                            class="
+                                w-[38px]
+
+                                text-[18px]
+                                leading-none
+                                font-normal
+                            "
+                        >
+                            이름
+                        </label>
+
+                        <input
+                            id="user-name"
+                            name="name"
+                            type="text"
+                            class="
+                                w-0
+                                h-[48px]
+                                flex-1
+
+                                rounded-[20px]
+                                border-0
+
+                                bg-white
+                                px-[20px]
+
+                                text-[18px]
+                                font-medium
+                                text-black
+                            "
+                        >
+
+                    </div>
+
+
+                    <div class="
+                        mt-[12px]
+
+                        flex
+                        h-[48px]
+                        items-center
+                    ">
+
+                        <label
+                            for="user-phone"
+                            class="
+                                w-[38px]
+
+                                text-[18px]
+                                leading-none
+                                font-normal
+                            "
+                        >
+                            번호
+                        </label>
+
+                        <input
+                            id="user-phone"
+                            name="phone"
+                            type="text"
+                            pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
+                            class="
+                                w-0
+                                h-[48px]
+                                flex-1
+
+                                rounded-[20px]
+                                border-0
+
+                                bg-white
+                                px-[20px]
+
+                                text-[18px]
+                                font-medium
+                                text-black
+                            "
+                        >
+
+                    </div>
+
+
+                    <div class="
+                        mt-[52px]
+                        ml-[21px]
+
+                        flex
+                        flex-col
+                        gap-[12px]
+                    ">
+
+                        <label class="
+                            flex
+                            items-center
+                            gap-[10px]
+
+                            text-[16px]
+                            leading-none
+                            font-normal
+                        ">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                class="
+                                    h-[18px]
+                                    w-[18px]
+
+                                    accent-white
+                                "
+                            >
+
+                            <span>
+                                서비스 이용약관에 동의합니다
+                            </span>
+
+                        </label>
+
+
+                        <label class="
+                            flex
+                            items-center
+                            gap-[10px]
+
+                            text-[16px]
+                            leading-none
+                            font-normal
+                        ">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                class="
+                                    h-[18px]
+                                    w-[18px]
+
+                                    accent-white
+                                "
+                            >
+
+                            <span>
+                                개인정보 처리방침에 동의합니다
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </form>
+
+
+                <button
+                    type="button"
+                    onclick="signup()"
+                    class="
                         mt-[24px]
                         mx-[12px]
 
                         h-[48px]
-                        w-[calc(100%-24px)]
-
                         rounded-[20px]
 
                         bg-[#05D082]
@@ -387,9 +405,12 @@
                         leading-none
                         font-extrabold
                     "
-            >
-                Sign up
-            </button>
+                >
+                    Sign up
+                </button>
+
+            </div>
+
 
             <div class="
                 px-[20px]
@@ -413,6 +434,7 @@
         </div>
 
     </main>
+
 
     <script>
         document.fonts.ready.then(() => {
