@@ -229,7 +229,7 @@ def join_room(room_id):
         return error("방 정원이 가득 찼습니다.", 409)
 
     # waiting 상태 일때만 추가 
-    rooms.update_one(
+    result = rooms.update_one(
         {"id": room_id, "status" : "waiting"},
         {"$push": {"members": {
             "id": user_id,
@@ -239,6 +239,9 @@ def join_room(room_id):
             "logs": [],
         }}},
     )
+
+    if result.modified_count == 0:
+        return error("현재 방에 참가할 수 없습니다.", 409)
 
     return jsonify({"status": "success", "room": get_room(room_id)})
 
