@@ -9,8 +9,6 @@ from config import DATABASE_NAME, DEBUG, HOST, JWT_SECRET_KEY, MONGO_URI, PORT, 
 from flask_jwt_extended import *
 from routes.page import page_bp
 
-from twilio.rest import Client as TwilioClient
-
 # 1. Flask와 MongoDB 준비
 app = Flask(
     __name__,
@@ -28,7 +26,6 @@ app.config["JWT_ACCESS_COOKIE_NAME"] = "access_token_cookie"
 app.config["JWT_REFRESH_COOKIE_NAME"] = "refresh_token_cookie"
 
 
-twclient = TwilioClient(TW_SID,TW_AUTH)
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
 jwt = JWTManager(app) ## jwt manager 가 secret key 를 관리 
