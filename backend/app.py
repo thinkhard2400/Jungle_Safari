@@ -43,15 +43,6 @@ def get_room(room_id):
     """방 ID로 MongoDB에서 방 하나를 찾습니다."""
     return rooms.find_one({"id": room_id}, {"_id": 0})
 
-def send_sms(receiver, name):
-    return twclient.messages.create(
-        to=receiver,
-        from_=TW_SENDER,
-        body= f"{name}님 곧 운동이 시작됩니다!",
-    )
-
-
-
 ### API Route
 
 # 2. 서버가 정상적으로 실행되는지 확인하는 API
@@ -288,17 +279,6 @@ def roomstart(room_id):
                 
                                 }}
                         )
-
-
-        for u in user_list :
-            uphone = u.get("phone")
-            uname = u.get("name")
-            try:
-                send_sms(uphone, uname)
-            except Exception:
-                # 문자 발송 실패가 운동 시작 자체를 막지 않도록 합니다.
-                app.logger.exception("운동 시작 알림 문자 발송 실패")
-
 
         return jsonify({"status" : "success" })
 
