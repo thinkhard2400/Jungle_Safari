@@ -280,14 +280,13 @@
                             font-normal
                         "
                     >
-                        전화번호
+                        번호
                     </label>
 
                     <input
                         id="user-phone"
                         name="phone"
                         type="text"
-                        placeholder="예: 010-1234-5678"
                         pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
                         class="
                             w-0
@@ -325,7 +324,7 @@
 
                         text-[16px]
                         leading-none
-                        font-thin
+                        font-normal
                     ">
                         <input
                             type="checkbox"
@@ -349,7 +348,7 @@
 
                         text-[16px]
                         leading-none
-                        font-thin
+                        font-normal
                     ">
 
                         <input
@@ -428,7 +427,7 @@
             if (!valid_phone_number()) {
                 phone.value = "";
                 return;
-                
+
             }
 
             try {
@@ -451,7 +450,7 @@
         }
 
         function valid_phone_number() {
-            
+
             if (!phone.checkValidity()) {
                 phone.setCustomValidity("올바른 전화번호 형식을 입력해주세요");
                 phone.reportValidity();
