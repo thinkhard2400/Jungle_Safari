@@ -235,9 +235,6 @@ def join_room(room_id):
         }}},
     )
 
-    if result.modified_count == 0:
-        return error("현재 방에 참가할 수 없습니다.", 409)
-
     return jsonify({"status": "success", "room": get_room(room_id)})
 
 # 8. 운동방 시작 
@@ -294,11 +291,6 @@ def roomstart(room_id):
                 
                                 }}
                         )
-        # 동시성 처리 : 
-        if result.modified_count == 0 :
-            return error (
-                "시작 할 수 없는 방입니다", 409
-            )
 
 
         for u in user_list :
